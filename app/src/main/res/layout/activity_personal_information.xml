@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PersonalInformationActivity"
+    android:orientation="vertical"
+    android:layout_marginTop="30dp"
+    android:gravity="center"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="先來填個自我介紹吧~"
+        android:textSize="30dp"
+        >
+    </TextView>
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:onClick="AddPhoto"></Button>
+
+    <ScrollView
+        android:id="@+id/contencrollView"
+        android:layout_height="350dp"
+        android:layout_width="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="姓名 : "
+                    android:textSize="20dp"
+                    >
+                </TextView>
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content">
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="性別 : "
+                    android:textSize="20dp"
+                    >
+                </TextView>
+                <EditText
+                    android:id="@+id/gender"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content">
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="年紀 : "
+                    android:textSize="20dp"
+                    >
+                </TextView>
+                <EditText
+                    android:id="@+id/age"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content">
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="大學 : "
+                    android:textSize="20dp"
+                    >
+                </TextView>
+                <EditText
+                    android:id="@+id/college"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content">
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="城市 : "
+                    android:textSize="20dp"
+                    >
+                </TextView>
+                <EditText
+                    android:id="@+id/city"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content">
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="關於我 : "
+                    android:textSize="20dp"
+                    >
+                </TextView>
+                <EditText
+                    android:id="@+id/about"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="4"
+                    android:gravity="top"
+                    android:scrollbars="vertical"
+                    >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="興趣 : "
+                    android:textSize="20dp"
+                    >
+                </TextView>
+                <EditText
+                    android:id="@+id/interest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="4"
+                    android:gravity="top"
+                    android:scrollbars="vertical"
+                    >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="關於我 : "
+                    android:textSize="20dp"
+                    >
+                </TextView>
+                <EditText
+                    android:id="@+id/personality"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="4"
+                    android:gravity="top"
+                    android:scrollbars="vertical"
+                    >
+                </EditText>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="確定"
+            android:textSize="25dp"
+            android:onClick="Certain"
+            >
+        </Button>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:text="取消"
+            android:textSize="25dp"
+            android:onClick="Cencal"
+            >
+        </Button>
+    </LinearLayout>
+</LinearLayout>
+
