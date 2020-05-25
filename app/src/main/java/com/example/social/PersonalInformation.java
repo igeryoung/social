@@ -1,6 +1,19 @@
 package com.example.social;
 
 public class PersonalInformation {
+    public static final String DATABASE_TABLE = "PERSONAL_INFORMATION_TABLE";
+
+    public static final String KEY_ID = "_id";
+    public static final String KEY_NA = "name";
+    public static final String KEY_GR = "graph";
+    public static final String KEY_AB = "about";
+    public static final String KEY_CO = "college";
+    public static final String KEY_CI = "city";
+    public static final String KEY_AG = "age";
+    public static final String KEY_GE = "gender";
+    public static final String KEY_IN = "interest";
+    public static final String KEY_PE = "personality";
+
     private String id;
     private String name;
     private String graph;
