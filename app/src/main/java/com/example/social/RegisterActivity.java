@@ -9,11 +9,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class RegisterActivity extends AppCompatActivity {
+    private FireBaseDB mDataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        this.mDataBase = new FireBaseDB();
     }
 
     public void Check(View view) {
@@ -55,11 +57,13 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
             //assure error
-            if(false /*assure unmatch*/){
+            if(assure.compareTo(password) != 0){
                 throw new RegisterException(RegisterException.ErrorType.assure_error);
             }
 
             // successful login and jump to next page
+
+            mDataBase.insertAccount(account, password);
 
             /*
             Intent next_page = new Intent(MainActivity.this , next.class );
@@ -75,7 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
         EditText text_account = findViewById(R.id.account);
         String account = text_account.getText().toString();
         TextView input_msg = findViewById(R.id.msg);
-        if(false/*account exist*/){
+        if(mDataBase.checkIfAccountExist(account)){
             input_msg.setText("此帳號已被註冊");
             return false;
         }else{

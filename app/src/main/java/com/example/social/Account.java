@@ -9,6 +9,9 @@ public class Account {
     private String account;
     private String password;
 
+    public Account(){
+        //Default constructor required for calls to DataSnapshot.getValue(User.class)
+    }
     public Account(String account, String password){
         this.account = account;
         this.password = password;
