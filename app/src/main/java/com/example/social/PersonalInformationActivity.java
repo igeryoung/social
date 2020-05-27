@@ -17,12 +17,12 @@ public class PersonalInformationActivity extends AppCompatActivity {
     }
 
     public void AddPhoto(View view) {
-
-        startSwipe();
+        Intent next_page = new Intent(PersonalInformationActivity.this , AddPhoto.class );
+        startActivity(next_page);
     }
 
     public void Certain(View view) {
-
+        startSwipe();
     }
 
     public void Cencal(View view) {
@@ -33,4 +33,5 @@ public class PersonalInformationActivity extends AppCompatActivity {
         Intent next_page = new Intent(PersonalInformationActivity.this , TinderSwipe.class );
         startActivity(next_page);
     }
+
 }
