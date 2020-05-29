@@ -17,13 +17,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+        findViewById(R.id.loadingPanel).setVisibility(View.INVISIBLE);
         this.mDataBase = new FireBaseDB();
     }
 
     public void LogIn(View view) {
 
         try {
+            findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
             EditText text_account = findViewById(R.id.account);
             String account = text_account.getText().toString();
             EditText text_password = findViewById(R.id.password);
@@ -33,7 +34,11 @@ public class MainActivity extends AppCompatActivity {
                 throw new LogInException(LogInException.ErrorType.account_blank);
             }else if (text_password.getText().length() == 0){
                 throw new LogInException(LogInException.ErrorType.password_blank);
-            }else if(mDataBase.checkIfAccountExist(account) == false){
+            }
+
+            mDataBase.LogIn(MainActivity.this, account, password);
+            /**
+            else if(mDataBase.checkIfAccountExist(account) == false){
                 throw new LogInException(LogInException.ErrorType.account_undefine);
             }else if(mDataBase.checkPassword(account, password) == false){
                 throw new LogInException(LogInException.ErrorType.password_error);
@@ -42,9 +47,11 @@ public class MainActivity extends AppCompatActivity {
 
             Intent next_page = new Intent(MainActivity.this , PersonalInformationActivity.class );
             startActivity(next_page);
+             */
 
         } catch (LogInException e) {
             Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            findViewById(R.id.loadingPanel).setVisibility(View.INVISIBLE);
         }
     }
 
