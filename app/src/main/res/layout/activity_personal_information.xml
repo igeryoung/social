@@ -19,10 +19,13 @@
         >
     </TextView>
 
-    <Button
+    <ImageButton
+        android:id="@+id/image"
+        android:scaleType="centerInside"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:onClick="AddPhoto"></Button>
+        android:adjustViewBounds="true"
+        android:onClick="AddPhoto"></ImageButton>
 
     <ScrollView
         android:id="@+id/contencrollView"
