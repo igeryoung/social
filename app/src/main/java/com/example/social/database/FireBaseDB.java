@@ -44,27 +44,28 @@ public class FireBaseDB {
                             if(document.exists()){
                                 Account account = document.toObject(Account.class);
                                 if(account.getPassword().compareTo(mPassword) == 0){
+                                    Log.d(TAG, "Correct password!");
                                     Intent next_page = new Intent(context , PersonalInformationActivity.class );
                                     context.startActivity(next_page);
                                 }
                                 else{
+                                    Log.d(TAG, "Wrong password!");
                                     Toast.makeText(context, "密碼錯誤請再試一次\n", Toast.LENGTH_SHORT).show();
                                 }
-                                Log.d(TAG, "Document exists!");
                             }
                             else{
+                                Log.d(TAG, "No existing account!");
                                 Toast.makeText(context, "查無此帳號\n", Toast.LENGTH_SHORT).show();
-                                Log.d(TAG, "Document does not exist!");
                             }
                         } else {
-                            Toast.makeText(context, "讀取失敗\n", Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "Failed with: ", task.getException());
+                            Toast.makeText(context, "讀取失敗\n", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
 
-    public boolean checkIfAccountExist(String mUserName){
+    public void checkIfAccountExist(final Context context, String mUserName){
         db.collection("account")
                 .document(mUserName)
                 .get()
@@ -74,40 +75,46 @@ public class FireBaseDB {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if(document.exists()){
-                                checkRet = true;
-                                Log.d(TAG, "Document exists!");
+                                Log.d(TAG, "username already exists!");
+                                Toast.makeText(context, "此帳號已被註冊\n", Toast.LENGTH_SHORT).show();
                             }
                             else{
-                                checkRet = false;
-                                Log.d(TAG, "Document does not exist!");
+                                Log.d(TAG, "valid username!");
+                                Toast.makeText(context, "此帳號可使用\n", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            checkRet = false;
                             Log.d(TAG, "Failed with: ", task.getException());
+                            Toast.makeText(context, "讀取失敗\n", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-        return checkRet;
     }
 
-    public boolean checkPassword(String mUserName, final String mPassword){
+    public void register(final Context context, final String mUserName, final String mPassword){
         db.collection("account")
                 .document(mUserName)
                 .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Account account = documentSnapshot.toObject(Account.class);
-                        if (account.getPassword().compareTo(mPassword) == 0) {
-                            checkRet = true;
-                            Log.d(TAG, "correct password");
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if(document.exists()){
+                                Log.d(TAG, "username already exists");
+                                Toast.makeText(context, "此帳號已被註冊\n", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Log.d(TAG, "insert a new account!");
+                                insertAccount(mUserName, mPassword);
+                                Intent next_page = new Intent(context , PersonalInformationActivity.class );
+                                context.startActivity(next_page);
+                            }
                         } else {
-                            checkRet = false;
-                            Log.d(TAG, "wrong password");
+                            Log.d(TAG, "Failed with: ", task.getException());
+                            Toast.makeText(context, "讀取失敗\n", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-        return checkRet;
     }
 
     public void insertAccount(String mUserName, String mPassword){

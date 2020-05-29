@@ -53,11 +53,6 @@ public class RegisterActivity extends AppCompatActivity {
                 throw new RegisterException(RegisterException.ErrorType.assure_blank);
             }
 
-            //account exist
-            if (DoCheck() == false){
-                return;
-            }
-
             //assure error
             if(assure.compareTo(password) != 0){
                 throw new RegisterException(RegisterException.ErrorType.assure_error);
@@ -65,7 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             // successful login and jump to next page
 
-            mDataBase.insertAccount(account, password);
+            mDataBase.register(RegisterActivity.this, account, password);
 
             /*
             Intent next_page = new Intent(MainActivity.this , next.class );
@@ -77,16 +72,9 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private boolean DoCheck(){
+    private void DoCheck(){
         EditText text_account = findViewById(R.id.account);
         String account = text_account.getText().toString();
-        TextView input_msg = findViewById(R.id.msg);
-        if(mDataBase.checkIfAccountExist(account)){
-            input_msg.setText("此帳號已被註冊");
-            return false;
-        }else{
-            input_msg.setText("此帳號可使用");
-            return true;
-        }
+        mDataBase.checkIfAccountExist(RegisterActivity.this, account);
     }
 }
