@@ -61,10 +61,13 @@ public class FireBaseDB {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         Account account = documentSnapshot.toObject(Account.class);
-                        if(account.getPassword().compareTo(mPassword) == 0)
+                        if (account.getPassword().compareTo(mPassword) == 0) {
                             checkRet = true;
-                        else
+                            Log.d(TAG, "correct password");
+                        } else {
                             checkRet = false;
+                            Log.d(TAG, "wrong password");
+                        }
                     }
                 });
         return checkRet;
