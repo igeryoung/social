@@ -15,14 +15,14 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 public class ImageDB {
-    private static final String TAG = "imageMsg"
+    private static final String TAG = "imageMsg";
     private StorageReference mStorageRef;
     private String mUserName;
     private boolean checkRet;
 
     public ImageDB(String mUserName){
         mStorageRef = FirebaseStorage.getInstance().getReference();
-        this.mUserName = mUserName
+        this.mUserName = mUserName;
     }
 
     public String getURL(Uri file){
@@ -32,13 +32,13 @@ public class ImageDB {
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Log.d(TAG, "successfully upload")
+                        Log.d(TAG, "successfully upload");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
-                        Log.d(TAG, "upload failed")
+                        Log.d(TAG, "upload failed");
                     }
                 });
 

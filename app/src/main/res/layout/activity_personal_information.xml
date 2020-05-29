@@ -215,7 +215,7 @@
             android:layout_marginLeft="80dp"
             android:text="取消"
             android:textSize="25dp"
-            android:onClick="Cencal"
+            android:onClick="Cancel"
             >
         </Button>
     </LinearLayout>
