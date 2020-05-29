@@ -1,9 +1,11 @@
-package com.example.social;
+package com.example.social.database;
 
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.social.Account;
+import com.example.social.PersonalInformation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -94,4 +96,8 @@ public class FireBaseDB {
         return checkRet;
     }
 
+    /** PersonalInformation.id == userName ? */
+    public void insertPI(PersonalInformation PI){
+        db.collection("account").document(PI.getId()).set(PI);
+    }
 }

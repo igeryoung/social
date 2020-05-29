@@ -1,10 +1,11 @@
-package com.example.social;
+package com.example.social.database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.social.PersonalInformation;
 
 public class PersonGetData {
     private PersonDB dbservice;

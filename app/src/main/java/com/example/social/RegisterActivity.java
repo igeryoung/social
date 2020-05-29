@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.social.database.FireBaseDB;
+
 public class RegisterActivity extends AppCompatActivity {
     private FireBaseDB mDataBase;
 

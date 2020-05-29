@@ -1,10 +1,13 @@
-package com.example.social;
+package com.example.social.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import com.example.social.Account;
+import com.example.social.PersonalInformation;
 
 public class PersonDB extends SQLiteOpenHelper {
     private final static int _DBVersion = 1;
