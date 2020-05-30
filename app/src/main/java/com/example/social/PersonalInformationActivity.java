@@ -11,18 +11,25 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 public class PersonalInformationActivity extends AppCompatActivity {
+<<<<<<< HEAD
+=======
+    private String account;
+>>>>>>> 37c13ac7339b38c5c3fb1e0663c1c3ee89c878c4
     ImageButton ImageButton;
+    boolean ImageSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_information);
+        Intent intent = getIntent();
+        account = intent.getStringExtra("account");
+
         ImageButton = (ImageButton)findViewById(R.id.image);
+        ImageSet = false;
     }
 
     public void AddPhoto(View view) {
-        //Intent next_page = new Intent(PersonalInformationActivity.this , AddPhoto.class );
-        //startActivity(next_page);
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(gallery, 100);
 
@@ -33,8 +40,20 @@ public class PersonalInformationActivity extends AppCompatActivity {
         if(resultCode == RESULT_OK && requestCode == 100){
             Uri imageUri = data.getData();
             ImageButton.setImageURI(imageUri);
+            ImageSet = true;
         }
+        else {
+            //這次選取有沒有照片
+            Toast.makeText(PersonalInformationActivity.this, "未選取照片", Toast.LENGTH_SHORT).show();
+        }
+        ImageSetOrNot();
     }
+
+    public boolean ImageSetOrNot(){
+        //現在有沒有存照片
+        return ImageSet;
+    }
+
     public void Certain(View view) {
         EditText text_name = findViewById(R.id.name);
         String name = text_name.getText().toString();
@@ -53,11 +72,12 @@ public class PersonalInformationActivity extends AppCompatActivity {
     }
 
     public void Cancel(View view) {
-        finish();
+        startSwipe();
     }
 
     public void startSwipe(){
         Intent next_page = new Intent(PersonalInformationActivity.this , SwipeActivity.class );
+        next_page.putExtra("account" , account);
         startActivity(next_page);
     }
 

@@ -42,6 +42,7 @@ public class FireBaseDB {
                                     if(account.getHavePI() == false){
                                         Log.d(TAG, "Correct password, go create PI!");
                                         Intent next_page = new Intent(context , PersonalInformationActivity.class );
+                                        next_page.putExtra( "account", account.getAccount());
                                         context.startActivity(next_page);
                                     }
                                     else{
