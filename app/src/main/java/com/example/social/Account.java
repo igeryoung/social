@@ -8,13 +8,15 @@ public class Account {
 
     private String account;
     private String password;
+    private boolean havePI;
 
     public Account(){
         //Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
-    public Account(String account, String password){
+    public Account(String account, String password, boolean havePI){
         this.account = account;
         this.password = password;
+        this.havePI = havePI;
     }
 
     public void setAccount(String account){ this.account = account; }
@@ -24,4 +26,8 @@ public class Account {
     public void setPassword(String password){ this.password = password; }
 
     public String getPassword(){ return this.password; }
+
+    public void setHavePI(boolean havePI){ this.havePI = havePI; }
+
+    public boolean getHavePI(){ return this.havePI; }
 }

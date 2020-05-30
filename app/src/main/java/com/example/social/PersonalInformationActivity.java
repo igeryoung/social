@@ -7,13 +7,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 public class PersonalInformationActivity extends AppCompatActivity {
-
     ImageButton ImageButton;
 
     @Override
@@ -60,7 +57,7 @@ public class PersonalInformationActivity extends AppCompatActivity {
     }
 
     public void startSwipe(){
-        Intent next_page = new Intent(PersonalInformationActivity.this , TinderSwipe.class );
+        Intent next_page = new Intent(PersonalInformationActivity.this , SwipeActivity.class );
         startActivity(next_page);
     }
 

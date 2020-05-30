@@ -21,7 +21,7 @@ import com.yuyakaido.android.cardstackview.SwipeableMethod;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TinderSwipe extends AppCompatActivity {
+public class SwipeActivity extends AppCompatActivity {
 
     private static final String TAG = "TinderSwipe";
     private CardStackLayoutManager manager;
@@ -43,19 +43,19 @@ public class TinderSwipe extends AppCompatActivity {
             public void onCardSwiped(Direction direction) {
                 Log.d(TAG, "onCardSwiped: p=" + manager.getTopPosition() + " d=" + direction);
                 if (direction == Direction.Right){
-                    Toast.makeText(TinderSwipe.this, "Direction Right", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SwipeActivity.this, "Direction Right", Toast.LENGTH_SHORT).show();
                     swipeRight();
                 }
                 if (direction == Direction.Top){
-                    Toast.makeText(TinderSwipe.this, "Direction Top", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SwipeActivity.this, "Direction Top", Toast.LENGTH_SHORT).show();
                     swipeTop();
                 }
                 if (direction == Direction.Left){
-                    Toast.makeText(TinderSwipe.this, "Direction Left", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SwipeActivity.this, "Direction Left", Toast.LENGTH_SHORT).show();
                     swipeLeft();
                 }
                 if (direction == Direction.Bottom){
-                    Toast.makeText(TinderSwipe.this, "Direction Bottom", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SwipeActivity.this, "Direction Bottom", Toast.LENGTH_SHORT).show();
                     swipeBottom();
                 }
 
@@ -107,22 +107,22 @@ public class TinderSwipe extends AppCompatActivity {
 
     private void swipeBottom() {
         String tmp = "which position" + manager.getTopPosition();
-        Toast.makeText(TinderSwipe.this, tmp, Toast.LENGTH_SHORT).show();
+        Toast.makeText(SwipeActivity.this, tmp, Toast.LENGTH_SHORT).show();
     }
 
     private void swipeLeft() {
         String tmp = "which position" + manager.getTopPosition();
-        Toast.makeText(TinderSwipe.this, tmp, Toast.LENGTH_SHORT).show();
+        Toast.makeText(SwipeActivity.this, tmp, Toast.LENGTH_SHORT).show();
     }
 
     private void swipeTop() {
         String tmp = "which position" + manager.getTopPosition();
-        Toast.makeText(TinderSwipe.this, tmp, Toast.LENGTH_SHORT).show();
+        Toast.makeText(SwipeActivity.this, tmp, Toast.LENGTH_SHORT).show();
     }
 
     private void swipeRight() {
         String tmp = "which position" + manager.getTopPosition();
-        Toast.makeText(TinderSwipe.this, tmp, Toast.LENGTH_SHORT).show();
+        Toast.makeText(SwipeActivity.this, tmp, Toast.LENGTH_SHORT).show();
     }
 
     private void paginate() {

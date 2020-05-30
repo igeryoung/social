@@ -8,20 +8,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.social.Account;
-import com.example.social.MainActivity;
 import com.example.social.PersonalInformation;
 import com.example.social.PersonalInformationActivity;
+import com.example.social.SwipeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 
 public class FireBaseDB {
     private static final String TAG = "accountMsg";
@@ -44,9 +39,16 @@ public class FireBaseDB {
                             if(document.exists()){
                                 Account account = document.toObject(Account.class);
                                 if(account.getPassword().compareTo(mPassword) == 0){
-                                    Log.d(TAG, "Correct password!");
-                                    Intent next_page = new Intent(context , PersonalInformationActivity.class );
-                                    context.startActivity(next_page);
+                                    if(account.getHavePI() == false){
+                                        Log.d(TAG, "Correct password, go create PI!");
+                                        Intent next_page = new Intent(context , PersonalInformationActivity.class );
+                                        context.startActivity(next_page);
+                                    }
+                                    else{
+                                        Log.d(TAG, "Correct password, already have PI!");
+                                        Intent next_page = new Intent(context , SwipeActivity.class );
+                                        context.startActivity(next_page);
+                                    }
                                 }
                                 else{
                                     Log.d(TAG, "Wrong password!");
@@ -107,6 +109,7 @@ public class FireBaseDB {
                                 Log.d(TAG, "insert a new account!");
                                 insertAccount(mUserName, mPassword);
                                 Intent next_page = new Intent(context , PersonalInformationActivity.class );
+                                next_page.putExtra("mUserName" , mUserName);
                                 context.startActivity(next_page);
                             }
                         } else {
@@ -118,7 +121,7 @@ public class FireBaseDB {
     }
 
     public void insertAccount(String mUserName, String mPassword){
-        Account account = new Account(mUserName, mPassword);
+        Account account = new Account(mUserName, mPassword, false);
         db.collection("account").document(mUserName).set(account);
     }
 
@@ -147,4 +150,5 @@ public class FireBaseDB {
     public void insertPI(PersonalInformation PI){
         db.collection("account").document(PI.getId()).set(PI);
     }
+
 }
