@@ -3,6 +3,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -26,11 +27,16 @@ public class TinderSwipe extends AppCompatActivity {
     private static final String TAG = "TinderSwipe";
     private CardStackLayoutManager manager;
     private CardStackAdapter adapter;
-
+    private String account;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tinderswipe);
+
+        Intent intent = getIntent();
+        account = intent.getStringExtra("account");
+        System.out.println(account);
+
 
         CardStackView cardStackView = findViewById(R.id.card_stack_view);
         manager = new CardStackLayoutManager(this, new CardStackListener() {
@@ -148,5 +154,10 @@ public class TinderSwipe extends AppCompatActivity {
         items.add(new ItemModel(R.drawable.sample4, "Markobar", "19", "Bandung"));
         items.add(new ItemModel(R.drawable.sample5, "Marmut", "25", "Hutan"));
         return items;
+    }
+
+    public void person(View view) {
+        Intent personInfo = new Intent(TinderSwipe.this , PersonalInformation.class);
+        startActivity(personInfo);
     }
 }

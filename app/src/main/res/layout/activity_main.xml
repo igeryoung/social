@@ -57,7 +57,7 @@
             android:layout_marginLeft="30dp"
             android:textSize="40sp"
             android:layout_width="300dp"
-            android:inputType="textFilter"
+            android:inputType="textPassword"
             />
         >
     </LinearLayout>

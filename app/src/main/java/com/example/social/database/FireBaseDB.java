@@ -46,6 +46,7 @@ public class FireBaseDB {
                                 if(account.getPassword().compareTo(mPassword) == 0){
                                     Log.d(TAG, "Correct password!");
                                     Intent next_page = new Intent(context , PersonalInformationActivity.class );
+                                    next_page.putExtra( "account", account.getAccount());
                                     context.startActivity(next_page);
                                 }
                                 else{

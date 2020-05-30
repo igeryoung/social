@@ -13,19 +13,21 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class PersonalInformationActivity extends AppCompatActivity {
-
+    private String account;
     ImageButton ImageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_information);
+        Intent intent = getIntent();
+        account = intent.getStringExtra("account");
+
+
         ImageButton = (ImageButton)findViewById(R.id.image);
     }
 
     public void AddPhoto(View view) {
-        //Intent next_page = new Intent(PersonalInformationActivity.this , AddPhoto.class );
-        //startActivity(next_page);
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(gallery, 100);
 
@@ -56,11 +58,12 @@ public class PersonalInformationActivity extends AppCompatActivity {
     }
 
     public void Cancel(View view) {
-        finish();
+        startSwipe();
     }
 
     public void startSwipe(){
-        Intent next_page = new Intent(PersonalInformationActivity.this , TinderSwipe.class );
+        Intent next_page = new Intent(PersonalInformationActivity.this , TinderSwipe.class);
+        next_page.putExtra("account" , account);
         startActivity(next_page);
     }
 

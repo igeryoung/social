@@ -2,6 +2,7 @@ package com.example.social;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -62,11 +63,9 @@ public class RegisterActivity extends AppCompatActivity {
 
             mDataBase.register(RegisterActivity.this, account, password);
 
-            /*
-            Intent next_page = new Intent(MainActivity.this , next.class );
-            next_page.putExtra("account" , account);
-            startActivityForResult(next_page , 0);
-            */
+            Toast.makeText(RegisterActivity.this, "註冊成功，請重新登錄!", Toast.LENGTH_SHORT).show();
+            finish();
+
         } catch (RegisterException e) {
             Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
