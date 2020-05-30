@@ -15,6 +15,7 @@ import android.widget.Toast;
 public class PersonalInformationActivity extends AppCompatActivity {
     private String account;
     ImageButton ImageButton;
+    boolean ImageSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +24,8 @@ public class PersonalInformationActivity extends AppCompatActivity {
         Intent intent = getIntent();
         account = intent.getStringExtra("account");
 
-
         ImageButton = (ImageButton)findViewById(R.id.image);
+        ImageSet = false;
     }
 
     public void AddPhoto(View view) {
@@ -38,8 +39,20 @@ public class PersonalInformationActivity extends AppCompatActivity {
         if(resultCode == RESULT_OK && requestCode == 100){
             Uri imageUri = data.getData();
             ImageButton.setImageURI(imageUri);
+            ImageSet = true;
         }
+        else {
+            //這次選取有沒有照片
+            Toast.makeText(PersonalInformationActivity.this, "未選取照片", Toast.LENGTH_SHORT).show();
+        }
+        ImageSetOrNot();
     }
+
+    public boolean ImageSetOrNot(){
+        //現在有沒有存照片
+        return ImageSet;
+    }
+
     public void Certain(View view) {
         EditText text_name = findViewById(R.id.name);
         String name = text_name.getText().toString();
