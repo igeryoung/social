@@ -2,21 +2,26 @@ package com.example.social;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class PersonalInformationActivity extends AppCompatActivity {
-<<<<<<< HEAD
-=======
+
     private String account;
->>>>>>> 37c13ac7339b38c5c3fb1e0663c1c3ee89c878c4
     ImageButton ImageButton;
     boolean ImageSet;
+    Uri imageUri;
+    Bitmap imageBitmap;
+    String absolutePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,21 +42,73 @@ public class PersonalInformationActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
+
         if(resultCode == RESULT_OK && requestCode == 100){
-            Uri imageUri = data.getData();
-            ImageButton.setImageURI(imageUri);
-            ImageSet = true;
+            imageUri = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                imageBitmap = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
+                ImageButton.setImageBitmap(imageBitmap);
+                //ImageButton.setImageURI(imageUri);
+                ImageSet = true;
+            } catch (Exception e){
+                Toast.makeText(PersonalInformationActivity.this, "Empty file source", Toast.LENGTH_SHORT).show();
+            }
+            Context c = this.getApplicationContext();
+            absolutePath = getFilePath_below19(c, imageUri);
+            //Toast.makeText(PersonalInformationActivity.this, absolutePath, Toast.LENGTH_SHORT).show();
         }
         else {
             //這次選取有沒有照片
             Toast.makeText(PersonalInformationActivity.this, "未選取照片", Toast.LENGTH_SHORT).show();
         }
-        ImageSetOrNot();
     }
 
+    //現在有沒有存照片
     public boolean ImageSetOrNot(){
-        //現在有沒有存照片
         return ImageSet;
+    }
+    //回傳絕對路徑
+    public String getAbsolutePath(){
+        if (ImageSetOrNot() == false){
+            Toast.makeText(PersonalInformationActivity.this, "未選取照片", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+        return absolutePath;
+    }
+    //回傳圖片Bitmap
+    public Bitmap getImageBitmap(){
+        if (ImageSetOrNot() == false){
+            Toast.makeText(PersonalInformationActivity.this, "未選取照片", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+        return imageBitmap;
+    }
+    //回傳圖片Uri
+    public Uri getImageUri() {
+        if (ImageSetOrNot() == false){
+            Toast.makeText(PersonalInformationActivity.this, "未選取照片", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+        return imageUri;
+    }
+
+    // reference from https://blog.csdn.net/smileiam/article/details/79753745
+    public  static String getFilePath_below19(Context context, Uri uri) {
+        Cursor cursor = null ;
+        String path = "" ;
+        try {
+            String[] proj = {MediaStore.Images.Media.DATA};
+            cursor = context.getContentResolver().query(uri, proj, null , null , null );
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            path =cursor.getString(column_index);
+        } finally {
+            if (cursor != null ) {
+                cursor.close();
+            }
+        }
+        return path;
     }
 
     public void Certain(View view) {

@@ -22,6 +22,7 @@ import com.yuyakaido.android.cardstackview.SwipeableMethod;
 import java.util.ArrayList;
 import java.util.List;
 
+//reference from https://www.youtube.com/watch?v=PU0Oc1KdusM&t=669s
 public class SwipeActivity extends AppCompatActivity {
 
     private static final String TAG = "TinderSwipe";
@@ -157,7 +158,7 @@ public class SwipeActivity extends AppCompatActivity {
     }
 
     public void person(View view) {
-        Intent personInfo = new Intent(TinderSwipe.this , PersonalInformation.class);
+        Intent personInfo = new Intent(SwipeActivity.this , PersonalInformation.class);
         startActivity(personInfo);
     }
 }
