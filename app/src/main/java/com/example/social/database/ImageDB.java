@@ -1,5 +1,6 @@
 package com.example.social.database;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
 
@@ -14,6 +15,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 public class ImageDB {
@@ -27,14 +29,31 @@ public class ImageDB {
         this.mUserName = mUserName;
     }
 
-    public String getURL(Uri imageUri){
+    public void updateURL(Bitmap bitmap){
         final StorageReference mRef = mStorageRef.child(mUserName).child("thumbnail.jpg");
-        Uri file = Uri.fromFile(new File(imageUri.toString()));
+        //Uri file = Uri.fromFile(new File(path));
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
 
-        mRef.putFile(file)
+        mRef.putBytes(data)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        mRef.getDownloadUrl().
+                                addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        FireBaseDB mDataBase = new FireBaseDB();
+                                        mDataBase.updateGraph(uri.toString(), mUserName);
+                                        // Got the download URL for 'users/me/profile.png'
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle any errors
+                            }
+                        });
                         Log.d(TAG, "successfully upload");
                     }
                 })
@@ -44,7 +63,5 @@ public class ImageDB {
                         Log.d(TAG, "upload failed");
                     }
                 });
-
-        return mRef.getDownloadUrl().toString();
     }
 }

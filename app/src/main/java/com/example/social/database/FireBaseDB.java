@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 public class FireBaseDB {
     private static final String TAG = "accountMsg";
@@ -149,7 +150,7 @@ public class FireBaseDB {
 
     /** PersonalInformation.id == userName ? */
     public void insertPI(PersonalInformation PI){
-        db.collection("account").document(PI.getId()).set(PI);
+        db.collection("account").document(PI.getId()).set(PI, SetOptions.merge());
         db.collection("account")
                 .document(PI.getId())
                 .update("havePI", true)
@@ -163,6 +164,23 @@ public class FireBaseDB {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.d(TAG, "fail to insert personalInformation");
+                    }
+                });
+    }
+
+    public void updateGraph(String URL, String mUsername){
+        db.collection("account").document(mUsername)
+                .update("graph", URL)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "successfully update graph URL");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "fail to update graph URL");
                     }
                 });
     }

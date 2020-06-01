@@ -64,6 +64,8 @@ public class PersonalInformationActivity extends AppCompatActivity {
             Context c = this.getApplicationContext();
             absolutePath = getFilePath_below19(c, imageUri);
             //Toast.makeText(PersonalInformationActivity.this, absolutePath, Toast.LENGTH_SHORT).show();
+
+            System.out.println("absolute path => " + absolutePath);
         }
         else {
             //這次選取有沒有照片
@@ -149,12 +151,10 @@ public class PersonalInformationActivity extends AppCompatActivity {
                 throw new PersonalInformationException(PersonalInformationException.ErrorType.about_blank);
             }
             //System.out.println(imageUri.);
-            String imageDownloadURL = mImageDB.getURL(imageUri);
-            System.out.println("get imageURL => " + imageDownloadURL);
-
-            PersonalInformation PI = new PersonalInformation(account, name, imageDownloadURL, about, college, city, age, gender, "", "");
-
+            PersonalInformation PI = new PersonalInformation(account, name, "", about, college, city, age, gender, "", "");
             mDataBase.insertPI(PI);
+
+            mImageDB.updateURL(getImageBitmap());
             Toast.makeText(PersonalInformationActivity.this, "個人資料新增成功", Toast.LENGTH_SHORT).show();
 
             startSwipe();
