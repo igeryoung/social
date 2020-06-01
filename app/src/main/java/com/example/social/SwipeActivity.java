@@ -158,7 +158,8 @@ public class SwipeActivity extends AppCompatActivity {
     }
 
     public void person(View view) {
-        Intent personInfo = new Intent(SwipeActivity.this , PersonalInformation.class);
+        Intent personInfo = new Intent(SwipeActivity.this , PersonalInformationActivity.class);
+        personInfo.putExtra("account" , account);
         startActivity(personInfo);
     }
 }

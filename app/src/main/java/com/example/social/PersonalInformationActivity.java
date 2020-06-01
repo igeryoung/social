@@ -38,9 +38,32 @@ public class PersonalInformationActivity extends AppCompatActivity {
         account = intent.getStringExtra("account");
         this.mAccountDB = new AccountDB();
         this.mImageDB = new ImageDB(account);
-
+        this.mPInformationDB = new PersonalInformationDB();
         ImageButton = (ImageButton)findViewById(R.id.image);
         ImageSet = false;
+
+        show_last_change();
+
+    }
+
+    private void show_last_change() {
+        EditText text_name = findViewById(R.id.name);
+        EditText text_gender = findViewById(R.id.gender);
+        EditText text_age = findViewById(R.id.age);
+        EditText text_college = findViewById(R.id.college);
+        EditText text_city = findViewById(R.id.city);
+        EditText text_about = findViewById(R.id.about);
+        EditText text_interest = findViewById(R.id.interest);
+        EditText text_personality = findViewById(R.id.interest);
+        // " " put info of personalInfo get by id
+        text_name.setText("");
+        text_gender.setText("");
+        text_age.setText("");
+        text_college.setText("");
+        text_city.setText("");
+        text_about.setText("");
+        text_interest.setText("");
+        text_personality.setText("");
     }
 
     public void AddPhoto(View view) {
@@ -136,6 +159,11 @@ public class PersonalInformationActivity extends AppCompatActivity {
             String city = text_city.getText().toString();
             EditText text_about = findViewById(R.id.about);
             String about = text_about.getText().toString();
+            EditText text_interest = findViewById(R.id.interest);
+            String interest = text_interest.getText().toString();
+            EditText text_personality = findViewById(R.id.interest);
+            String personality = text_personality.getText().toString();
+
 
             if(!ImageSetOrNot()){
                 throw new PersonalInformationException(PersonalInformationException.ErrorType.image_blank);
@@ -153,7 +181,7 @@ public class PersonalInformationActivity extends AppCompatActivity {
                 throw new PersonalInformationException(PersonalInformationException.ErrorType.about_blank);
             }
             //System.out.println(imageUri.);
-            PersonalInformation PI = new PersonalInformation(account, name, "", about, college, city, age, gender, "", "");
+            PersonalInformation PI = new PersonalInformation(account, name, imageUri.toString(), about, college, city, age, gender, interest, personality);
             mPInformationDB.insertPI(PI);
 
             mImageDB.updateURL(getImageBitmap());
