@@ -6,17 +6,13 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 
 public class ImageDB {
     private static final String TAG = "imageMsg";
@@ -44,8 +40,8 @@ public class ImageDB {
                                 addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {
-                                        FireBaseDB mDataBase = new FireBaseDB();
-                                        mDataBase.updateGraph(uri.toString(), mUserName);
+                                        PersonalInformationDB mPInformationDB = new PersonalInformationDB();
+                                        mPInformationDB.updateGraph(uri.toString(), mUserName);
                                         // Got the download URL for 'users/me/profile.png'
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {

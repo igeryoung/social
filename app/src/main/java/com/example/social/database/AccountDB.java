@@ -1,38 +1,147 @@
 package com.example.social.database;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import android.content.Intent;
+import android.util.Log;
+import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 
 import com.example.social.Account;
+import com.example.social.PersonalInformation;
+import com.example.social.PersonalInformationActivity;
+import com.example.social.SwipeActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
-public class AccountDB extends SQLiteOpenHelper {
-    private final static int _DBVersion = 1;
-    private final static String _DBName = "account.db";
+public class AccountDB {
+    private static final String TAG = "accountMsg";
+    private FirebaseFirestore db;
 
-    public AccountDB(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public AccountDB(){
+        this.db = FirebaseFirestore.getInstance();
     }
 
-    public AccountDB(Context context){ super(context, _DBName, null, _DBVersion); }
-
-    /** create table when there's no available table */
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        final String SQL =  "CREATE TABLE IF NOT EXISTS " + Account.DATABASE_TABLE + "( "
-                            + Account.KEY_AC + " TEXT, "
-                            + Account.KEY_PA + " TEXT )";
-        db.execSQL(SQL);
+    public void LogIn(final Context context, String mUsername, final String mPassword){
+        db.collection("account")
+                .document(mUsername)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if(document.exists()){
+                                Account account = document.toObject(Account.class);
+                                if(account.getPassword().compareTo(mPassword) == 0){
+                                    if(account.getHavePI() == false){
+                                        Log.d(TAG, "Correct password, go create PI!");
+                                        Intent next_page = new Intent(context , PersonalInformationActivity.class );
+                                        next_page.putExtra( "account", account.getAccount());
+                                        context.startActivity(next_page);
+                                    }
+                                    else{
+                                        Log.d(TAG, "Correct password, already have PI!");
+                                        Intent next_page = new Intent(context , SwipeActivity.class );
+                                        context.startActivity(next_page);
+                                    }
+                                }
+                                else{
+                                    Log.d(TAG, "Wrong password!");
+                                    Toast.makeText(context, "密碼錯誤請再試一次\n", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            else{
+                                Log.d(TAG, "No existing account!");
+                                Toast.makeText(context, "查無此帳號\n", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Log.d(TAG, "Failed with: ", task.getException());
+                            Toast.makeText(context, "讀取失敗\n", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
-    /** dump the old table and create a new one */
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Drop older table if existed, all data will be gone
-        db.execSQL("DROP TABLE IF EXISTS " + Account.DATABASE_TABLE);
-        // Create tables again
-        onCreate(db);
+    public void checkIfAccountExist(final Context context, String mUserName){
+        db.collection("account")
+                .document(mUserName)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if(document.exists()){
+                                Log.d(TAG, "username already exists!");
+                                Toast.makeText(context, "此帳號已被註冊\n", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Log.d(TAG, "valid username!");
+                                Toast.makeText(context, "此帳號可使用\n", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Log.d(TAG, "Failed with: ", task.getException());
+                            Toast.makeText(context, "讀取失敗\n", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
+
+    public void register(final Context context, final String mUserName, final String mPassword){
+        db.collection("account")
+                .document(mUserName)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if(document.exists()){
+                                Log.d(TAG, "username already exists");
+                                Toast.makeText(context, "此帳號已被註冊\n", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Log.d(TAG, "insert a new account!");
+                                insertAccount(mUserName, mPassword);
+                                Intent next_page = new Intent(context , PersonalInformationActivity.class );
+                                next_page.putExtra("mUserName" , mUserName);
+                                context.startActivity(next_page);
+                            }
+                        } else {
+                            Log.d(TAG, "Failed with: ", task.getException());
+                            Toast.makeText(context, "讀取失敗\n", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    public void insertAccount(String mUserName, String mPassword){
+        Account account = new Account(mUserName, mPassword, false);
+        db.collection("account").document(mUserName).set(account);
+    }
+
+    public void changePassword(final String mUserName , String mPassword){
+        db.collection("account")
+                .document(mUserName)
+                .update("password", mPassword)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, mUserName + " successfully change password");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, mUserName + " failed to change password");
+                    }
+                });
+    }
+
 }

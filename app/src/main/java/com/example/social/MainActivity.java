@@ -8,17 +8,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.social.database.FireBaseDB;
+import com.example.social.database.AccountDB;
 
 public class MainActivity extends AppCompatActivity {
-    private FireBaseDB mDataBase;
+    private AccountDB mDataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findViewById(R.id.loadingPanel).setVisibility(View.INVISIBLE);
-        this.mDataBase = new FireBaseDB();
+        this.mDataBase = new AccountDB();
     }
 
     public void LogIn(View view) {

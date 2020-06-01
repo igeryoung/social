@@ -13,12 +13,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import com.example.social.database.FireBaseDB;
+import com.example.social.database.AccountDB;
 import com.example.social.database.ImageDB;
+import com.example.social.database.PersonalInformationDB;
 
 public class PersonalInformationActivity extends AppCompatActivity {
     private String account;
-    private FireBaseDB mDataBase;
+    private AccountDB mAccountDB;
+    private PersonalInformationDB mPInformationDB;
     private ImageDB mImageDB;
 
     ImageButton ImageButton;
@@ -34,7 +36,7 @@ public class PersonalInformationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_personal_information);
         Intent intent = getIntent();
         account = intent.getStringExtra("account");
-        this.mDataBase = new FireBaseDB();
+        this.mAccountDB = new AccountDB();
         this.mImageDB = new ImageDB(account);
 
         ImageButton = (ImageButton)findViewById(R.id.image);
@@ -152,7 +154,7 @@ public class PersonalInformationActivity extends AppCompatActivity {
             }
             //System.out.println(imageUri.);
             PersonalInformation PI = new PersonalInformation(account, name, "", about, college, city, age, gender, "", "");
-            mDataBase.insertPI(PI);
+            mPInformationDB.insertPI(PI);
 
             mImageDB.updateURL(getImageBitmap());
             Toast.makeText(PersonalInformationActivity.this, "個人資料新增成功", Toast.LENGTH_SHORT).show();
