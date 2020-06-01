@@ -14,6 +14,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
+
 public class ImageDB {
     private static final String TAG = "imageMsg";
     private StorageReference mStorageRef;
@@ -25,8 +27,9 @@ public class ImageDB {
         this.mUserName = mUserName;
     }
 
-    public String getURL(Uri file){
+    public String getURL(Uri imageUri){
         final StorageReference mRef = mStorageRef.child(mUserName).child("thumbnail.jpg");
+        Uri file = Uri.fromFile(new File(imageUri.toString()));
 
         mRef.putFile(file)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

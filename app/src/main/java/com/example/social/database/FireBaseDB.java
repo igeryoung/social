@@ -150,6 +150,21 @@ public class FireBaseDB {
     /** PersonalInformation.id == userName ? */
     public void insertPI(PersonalInformation PI){
         db.collection("account").document(PI.getId()).set(PI);
+        db.collection("account")
+                .document(PI.getId())
+                .update("havePI", true)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "successfully insert personalInformation");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "fail to insert personalInformation");
+                    }
+                });
     }
 
 }

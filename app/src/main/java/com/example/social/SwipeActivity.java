@@ -157,7 +157,7 @@ public class SwipeActivity extends AppCompatActivity {
     }
 
     public void person(View view) {
-        Intent personInfo = new Intent(TinderSwipe.this , PersonalInformation.class);
+        Intent personInfo = new Intent(SwipeActivity.this , PersonalInformation.class);
         startActivity(personInfo);
     }
 }
