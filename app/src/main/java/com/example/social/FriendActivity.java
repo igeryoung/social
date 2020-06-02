@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -60,6 +61,14 @@ public class FriendActivity extends AppCompatActivity {
                 super(v);
                 itemView = v;
                 name = itemView.findViewById(R.id.name);
+
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(view.getContext(),
+                                "click " +getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         }
 
