@@ -38,6 +38,7 @@ public class PersonalInformationActivity extends AppCompatActivity {
         account = intent.getStringExtra("account");
         this.mAccountDB = new AccountDB();
         this.mImageDB = new ImageDB(account);
+        this.mPInformationDB = new PersonalInformationDB();
 
         ImageButton = (ImageButton)findViewById(R.id.image);
         ImageSet = false;

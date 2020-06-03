@@ -118,4 +118,18 @@ public class PersonalInformation {
     public void setPersonality(String personality) {
         this.personality = personality;
     }
+
+    public String toString(){
+        String ret =    "Id = " + this.id + "\n" +
+                        "Name = " + this.name + "\n" +
+                        "age = " + this.age + "\n" +
+                        "gender = " + this.gender + "\n" +
+                        "college = " + this.college + "\n" +
+                        "city = " + this.city + "\n" +
+                        "about = " + this.about + "\n" +
+                        "interest = " + this.interest + "\n" +
+                        "personality = " + this.personality + "\n" +
+                        "graph URL = " + this.graph ;
+        return ret;
+    }
 }
