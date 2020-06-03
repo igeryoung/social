@@ -61,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             mDataBase.register(RegisterActivity.this, account, password);
 
-            Toast.makeText(RegisterActivity.this, "註冊成功，請重新登錄!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterActivity.this, "註冊成功 !", Toast.LENGTH_SHORT).show();
             finish();
 
         } catch (RegisterException e) {

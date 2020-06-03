@@ -158,7 +158,14 @@ public class SwipeActivity extends AppCompatActivity {
     }
 
     public void person(View view) {
-        Intent personInfo = new Intent(SwipeActivity.this , PersonalInformation.class);
+        Intent personInfo = new Intent(SwipeActivity.this , PersonalInformationActivity.class);
+        personInfo.putExtra("account" , account);
         startActivity(personInfo);
+    }
+
+    public void friend(View view) {
+        Intent friend_page = new Intent(SwipeActivity.this , FriendActivity.class);
+        friend_page.putExtra("account" , account);
+        startActivity(friend_page);
     }
 }
