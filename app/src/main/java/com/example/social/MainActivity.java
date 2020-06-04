@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.loadingPanel).setVisibility(View.INVISIBLE);
+        //findViewById(R.id.loadingPanel).setVisibility(View.INVISIBLE);
         //final LinearLayout background = (LinearLayout)findViewById(R.id.background);
         //background.setBackgroundColor(Color.parseColor("#B0E0E6"));
         this.mDataBase = new AccountDB();
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     public void LogIn(View view) {
 
         try {
-            findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
+            //findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
             EditText text_account = findViewById(R.id.account);
             String account = text_account.getText().toString();
             EditText text_password = findViewById(R.id.password);
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         } catch (LogInException e) {
             Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            findViewById(R.id.loadingPanel).setVisibility(View.INVISIBLE);
+            //findViewById(R.id.loadingPanel).setVisibility(View.INVISIBLE);
         }
     }
 

@@ -1,36 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
 
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".PersonalInformationActivity"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/background"
     android:orientation="vertical"
-    android:layout_marginTop="30dp"
-    android:gravity="center"
+    android:background="#FFB6C1"
     >
+
     <TextView
+        android:id="@+id/welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
         android:text="先來填個自我介紹吧~"
+        android:textStyle="bold"
         android:textSize="30dp"
-        >
-    </TextView>
+        />
 
     <ImageButton
         android:id="@+id/image"
         android:scaleType="centerInside"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_below="@id/welcome"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+
+        android:background="@drawable/circle_button"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:adjustViewBounds="true"
-        android:onClick="AddPhoto"></ImageButton>
+        android:onClick="AddPhoto"
+        />
 
     <ScrollView
         android:id="@+id/contencrollView"
-        android:layout_height="350dp"
-        android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/image"
+        android:layout_above="@id/button"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_height="450dp"
+        android:layout_width="fill_parent"
+        android:background="#FFDEAD"
         >
 
         <LinearLayout
@@ -42,10 +59,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:text="姓名 : "
                     android:textSize="20dp"
                     >
@@ -60,10 +79,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:text="性別 : "
                     android:textSize="20dp"
                     >
@@ -78,10 +99,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:text="年紀 : "
                     android:textSize="20dp"
                     >
@@ -96,10 +119,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:text="大學 : "
                     android:textSize="20dp"
                     >
@@ -114,10 +139,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:text="城市 : "
                     android:textSize="20dp"
                     >
@@ -132,11 +159,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginTop="5dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="關於我 : "
+                    android:layout_marginLeft="20dp"
+                    android:text="個性 : "
                     android:textSize="20dp"
                     >
                 </TextView>
@@ -149,38 +178,41 @@
                     android:scrollbars="vertical"
                     >
                 </EditText>
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="興趣 : "
-                    android:textSize="20dp"
-                    >
-                </TextView>
-                <EditText
-                    android:id="@+id/interest"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:lines="4"
-                    android:gravity="top"
-                    android:scrollbars="vertical"
-                    >
-                </EditText>
+                    android:orientation="vertical"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="興趣 : "
+                        android:textSize="20dp"></TextView>
+
+                    <EditText
+                        android:id="@+id/interest"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:lines="4"
+                        android:scrollbars="vertical"></EditText>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginTop="5dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="關於我 : "
+                    android:layout_marginLeft="20dp"
                     android:textSize="20dp"
                     >
                 </TextView>
@@ -200,27 +232,32 @@
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="195dp"
+            android:layout_height="70dp"
             android:text="確定"
             android:textSize="25dp"
             android:onClick="Certain"
+            android:background="@drawable/rectangle_button"
             >
         </Button>
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
+            android:layout_width="195dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="10dp"
             android:text="取消"
             android:textSize="25dp"
             android:onClick="Cancel"
+            android:background="@drawable/rectangle_button"
             >
         </Button>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
 
