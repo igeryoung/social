@@ -48,6 +48,7 @@ public class AccountDB {
                                     else{
                                         Log.d(TAG, "Correct password, already have PI!");
                                         Intent next_page = new Intent(context , SwipeActivity.class );
+                                        next_page.putExtra("account" , account.getAccount());
                                         context.startActivity(next_page);
                                     }
                                 }

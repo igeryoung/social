@@ -1,7 +1,7 @@
 package com.example.social;
 
 public class PersonalInformationException extends Exception {
-    public enum ErrorType {image_blank, name_blank, gender_blank, age_blank, college_blank, city_blank, about_blank};
+    public enum ErrorType {image_blank, name_blank, gender_blank, age_blank, college_blank, city_blank, about_blank, personality_blank, interest_blank};
     private PersonalInformationException.ErrorType error;
     public PersonalInformationException(PersonalInformationException.ErrorType error){ this.error = error; }
     @Override    public String getMessage(){
@@ -20,6 +20,10 @@ public class PersonalInformationException extends Exception {
                 return "請輸入城市";
             case about_blank:
                 return "請輸入關於自己";
+            case personality_blank:
+                return "請輸入個性";
+            case interest_blank:
+                return "請輸入興趣";
         }
         return "";
     }

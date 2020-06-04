@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -22,6 +23,7 @@ public class PersonalInformationActivity extends AppCompatActivity {
     private AccountDB mAccountDB;
     private PersonalInformationDB mPInformationDB;
     private ImageDB mImageDB;
+    private PersonalInformation mPI;
 
     ImageButton ImageButton;
 
@@ -36,6 +38,10 @@ public class PersonalInformationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_personal_information);
         Intent intent = getIntent();
         account = intent.getStringExtra("account");
+        mPI = (PersonalInformation) intent.getSerializableExtra("mPI");
+        if(mPI == null) Log.d("PIActivity", "got null");
+        else Log.d("PIActivity", mPI.toString());
+
         this.mAccountDB = new AccountDB();
         this.mImageDB = new ImageDB(account);
         this.mPInformationDB = new PersonalInformationDB();
@@ -162,7 +168,7 @@ public class PersonalInformationActivity extends AppCompatActivity {
             String about = text_about.getText().toString();
             EditText text_interest = findViewById(R.id.interest);
             String interest = text_interest.getText().toString();
-            EditText text_personality = findViewById(R.id.interest);
+            EditText text_personality = findViewById(R.id.personality);
             String personality = text_personality.getText().toString();
 
 
@@ -180,6 +186,10 @@ public class PersonalInformationActivity extends AppCompatActivity {
                 throw new PersonalInformationException(PersonalInformationException.ErrorType.city_blank);
             }else if(text_about.getText().length() == 0) {
                 throw new PersonalInformationException(PersonalInformationException.ErrorType.about_blank);
+            }else if(text_personality.getText().length() == 0) {
+                throw new PersonalInformationException(PersonalInformationException.ErrorType.personality_blank);
+            }else if(text_interest.getText().length() == 0) {
+                throw new PersonalInformationException(PersonalInformationException.ErrorType.interest_blank);
             }
             //System.out.println(imageUri.);
             PersonalInformation PI = new PersonalInformation(account, name, imageUri.toString(), about, college, city, age, gender, interest, personality);

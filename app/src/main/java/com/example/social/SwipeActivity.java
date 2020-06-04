@@ -12,6 +12,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.social.database.PersonalInformationDB;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.CardStackView;
@@ -29,15 +30,17 @@ public class SwipeActivity extends AppCompatActivity {
     private CardStackLayoutManager manager;
     private CardStackAdapter adapter;
     private String account;
+    private PersonalInformationDB mPInformationDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tinderswipe);
+        mPInformationDB = new PersonalInformationDB();
 
         Intent intent = getIntent();
         account = intent.getStringExtra("account");
-        System.out.println(account);
-
+        System.out.println("SwipeActivity get username = " + account);
 
         CardStackView cardStackView = findViewById(R.id.card_stack_view);
         manager = new CardStackLayoutManager(this, new CardStackListener() {
@@ -158,9 +161,7 @@ public class SwipeActivity extends AppCompatActivity {
     }
 
     public void person(View view) {
-        Intent personInfo = new Intent(SwipeActivity.this , PersonalInformationActivity.class);
-        personInfo.putExtra("account" , account);
-        startActivity(personInfo);
+        mPInformationDB.getMyPI(SwipeActivity.this, account);
     }
 
     public void friend(View view) {

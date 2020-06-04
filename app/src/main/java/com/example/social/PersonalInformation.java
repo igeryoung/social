@@ -1,6 +1,8 @@
 package com.example.social;
 
-public class PersonalInformation {
+import java.io.Serializable;
+
+public class PersonalInformation implements Serializable {
     public static final String DATABASE_TABLE = "PERSONAL_INFORMATION_TABLE";
 
     public static final String KEY_ID = "_id";
@@ -24,6 +26,8 @@ public class PersonalInformation {
     private String gender;
     private String interest;
     private String personality;
+
+    public PersonalInformation(){}
 
     public PersonalInformation(String id, String name, String graph, String about, String college, String city,
                                String age, String gender, String interest, String personality) {
