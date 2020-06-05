@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -22,6 +23,7 @@ public class FriendActivity extends AppCompatActivity {
     private LinkedList<HashMap<String , String>> data;
     private MyAdapter myAdapter;
     private String account;
+    private ArrayList<PersonalInformation> friendList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class FriendActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         account = intent.getStringExtra("account");
+        friendList = (ArrayList<PersonalInformation>) intent.getSerializableExtra("friendList");
 
         recyclerView = findViewById(R.id.recyclerView);
 

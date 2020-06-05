@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.social.database.PersonalInformationDB;
+import com.example.social.database.RelationDB;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.CardStackView;
@@ -31,15 +32,19 @@ public class SwipeActivity extends AppCompatActivity {
     private CardStackAdapter adapter;
     private String account;
     private PersonalInformationDB mPInformationDB;
+    private RelationDB mRelationDB;
+    private ArrayList<PersonalInformation> strangerList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tinderswipe);
         mPInformationDB = new PersonalInformationDB();
+        mRelationDB = new RelationDB();
 
         Intent intent = getIntent();
         account = intent.getStringExtra("account");
+        strangerList = (ArrayList<PersonalInformation>) intent.getSerializableExtra("strangerList");
         System.out.println("SwipeActivity get username = " + account);
 
         CardStackView cardStackView = findViewById(R.id.card_stack_view);
@@ -165,8 +170,6 @@ public class SwipeActivity extends AppCompatActivity {
     }
 
     public void friend(View view) {
-        Intent friend_page = new Intent(SwipeActivity.this , FriendActivity.class);
-        friend_page.putExtra("account" , account);
-        startActivity(friend_page);
+        mRelationDB.getFriendList(SwipeActivity.this, account);
     }
 }
