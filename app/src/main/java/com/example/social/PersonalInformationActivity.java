@@ -50,10 +50,10 @@ public class PersonalInformationActivity extends AppCompatActivity {
         ImageSet = false;
         if(mPI != null)
             show_last_change();
-
     }
 
     private void show_last_change() {
+        ImageSet = true;
         EditText text_name = findViewById(R.id.name);
         EditText text_gender = findViewById(R.id.gender);
         EditText text_age = findViewById(R.id.age);
@@ -61,7 +61,7 @@ public class PersonalInformationActivity extends AppCompatActivity {
         EditText text_city = findViewById(R.id.city);
         EditText text_about = findViewById(R.id.about);
         EditText text_interest = findViewById(R.id.interest);
-        EditText text_personality = findViewById(R.id.interest);
+        EditText text_personality = findViewById(R.id.personality);
         // " " put info of personalInfo get by id
         text_name.setText(mPI.getName());
         text_gender.setText(mPI.getGender());
@@ -205,8 +205,13 @@ public class PersonalInformationActivity extends AppCompatActivity {
         }
     }
 
-    public void Cancel(View view) {
+    @Override
+    public void finish(){
         startSwipe();
+    }
+
+    public void Cancel(View view) {
+        finish();
     }
 
     public void startSwipe(){
