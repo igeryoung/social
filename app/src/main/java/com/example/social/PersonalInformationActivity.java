@@ -48,8 +48,8 @@ public class PersonalInformationActivity extends AppCompatActivity {
 
         ImageButton = (ImageButton)findViewById(R.id.image);
         ImageSet = false;
-
-        show_last_change();
+        if(mPI != null)
+            show_last_change();
 
     }
 
@@ -63,14 +63,14 @@ public class PersonalInformationActivity extends AppCompatActivity {
         EditText text_interest = findViewById(R.id.interest);
         EditText text_personality = findViewById(R.id.interest);
         // " " put info of personalInfo get by id
-        text_name.setText("");
-        text_gender.setText("");
-        text_age.setText("");
-        text_college.setText("");
-        text_city.setText("");
-        text_about.setText("");
-        text_interest.setText("");
-        text_personality.setText("");
+        text_name.setText(mPI.getName());
+        text_gender.setText(mPI.getGender());
+        text_age.setText(mPI.getAge());
+        text_college.setText(mPI.getCollege());
+        text_city.setText(mPI.getCity());
+        text_about.setText(mPI.getAbout());
+        text_interest.setText(mPI.getInterest());
+        text_personality.setText(mPI.getPersonality());
     }
 
     public void AddPhoto(View view) {

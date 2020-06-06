@@ -43,6 +43,20 @@ public class PersonalInformation implements Serializable {
         this.personality = personality;
     }
 
+    public PersonalInformation(String info){
+        String[] tokens = info.split(",");
+        this.id = tokens[0];
+        this.name = tokens[1];
+        this.age = tokens[2];
+        this.gender = tokens[3];
+        this.college = tokens[4];
+        this.city = tokens[5];
+        this.about = tokens[6];
+        this.interest = tokens[7];
+        this.personality = tokens[8];
+        this.graph = tokens[9];
+    }
+
     public String getId() {
         return id;
     }
@@ -135,5 +149,19 @@ public class PersonalInformation implements Serializable {
                         "personality = " + this.personality + "\n" +
                         "graph URL = " + this.graph ;
         return ret;
+    }
+    public String getAllInString(){
+        String s = "";
+        s += id + ",";
+        s += name + ",";
+        s += age + ",";
+        s += gender + ",";
+        s += college + ",";
+        s += city + ",";
+        s += about + ",";
+        s += interest + ",";
+        s += personality + ",";
+        s += graph;
+        return s;
     }
 }

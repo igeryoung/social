@@ -48,9 +48,11 @@ public class FriendActivity extends AppCompatActivity {
 
     private void doData() {
         data = new LinkedList<>();
-        for(int i = 0; i < 20 ; i++){
+        if(friendList == null)  return;
+        for(int i = 0; i < friendList.size() ; i++){
             HashMap<String, String> row = new HashMap<>();
-            row.put("name" , "name");
+            row.put("name" , friendList.get(i).getName());
+            row.put("uri" , friendList.get(i).getGraph());
             data.add(row);
         }
     }
@@ -70,6 +72,11 @@ public class FriendActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         Toast.makeText(view.getContext(),
                                 "click " +getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                        PersonalInformation target = friendList.get(getAdapterPosition());
+                        String info = target.getAllInString();
+                        Intent next_page = new Intent(FriendActivity.this , FriendInfoActivity.class );
+                        next_page.putExtra("friend_info" , info);
+                        startActivity(next_page);
                     }
                 });
             }
