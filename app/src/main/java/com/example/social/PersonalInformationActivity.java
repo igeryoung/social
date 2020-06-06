@@ -61,7 +61,7 @@ public class PersonalInformationActivity extends AppCompatActivity {
         EditText text_city = findViewById(R.id.city);
         EditText text_about = findViewById(R.id.about);
         EditText text_interest = findViewById(R.id.interest);
-        EditText text_personality = findViewById(R.id.interest);
+        EditText text_personality = findViewById(R.id.personality);
         // " " put info of personalInfo get by id
         text_name.setText(mPI.getName());
         text_gender.setText(mPI.getGender());
