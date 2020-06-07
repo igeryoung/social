@@ -63,6 +63,8 @@ public class PersonalInformationActivity extends AppCompatActivity {
         EditText text_interest = findViewById(R.id.interest);
         EditText text_personality = findViewById(R.id.personality);
         // " " put info of personalInfo get by id
+
+
         text_name.setText(mPI.getName());
         text_gender.setText(mPI.getGender());
         text_age.setText(mPI.getAge());
@@ -70,7 +72,17 @@ public class PersonalInformationActivity extends AppCompatActivity {
         text_city.setText(mPI.getCity());
         text_about.setText(mPI.getAbout());
         text_interest.setText(mPI.getInterest());
-        text_personality.setText(mPI.getPersonality());
+        text_personality.setText(mPI.getInterest());
+        //Toast.makeText(PersonalInformationActivity.this, mPI.getGraph(), Toast.LENGTH_SHORT).show();
+        try {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(mPI.getGraph()));
+            imageBitmap = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
+            ImageButton.setImageBitmap(imageBitmap);
+            //ImageButton.setImageURI();
+        }
+        catch(Exception e){
+            Toast.makeText(PersonalInformationActivity.this, "no image", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void AddPhoto(View view) {

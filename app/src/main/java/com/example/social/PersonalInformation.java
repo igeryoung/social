@@ -137,6 +137,7 @@ public class PersonalInformation implements Serializable {
         this.personality = personality;
     }
 
+    public  String getGraph(String graph){return graph;}
     public String toString(){
         String ret =    "Id = " + this.id + "\n" +
                         "Name = " + this.name + "\n" +
