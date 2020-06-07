@@ -78,7 +78,7 @@ public class PersonalInformationActivity extends AppCompatActivity {
         try {
             //System.out.println(mPI.getGraph());
             Toast.makeText(PersonalInformationActivity.this, mPI.getGraph(), Toast.LENGTH_SHORT).show();
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(mPI.getGraph()) );
             imageBitmap = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
             ImageButton.setImageBitmap(imageBitmap);
             ImageSet = true;

@@ -9,11 +9,12 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class FriendInfoActivity extends AppCompatActivity {
-    PersonalInformation PI;
-    ImageButton ImageButton;
+    public PersonalInformation PI;
+    public ImageView IV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,7 @@ public class FriendInfoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String info = intent.getStringExtra("friend_info");
         PI = new PersonalInformation(info);
+        IV = findViewById(R.id.image);
         show();
 
     }
@@ -47,7 +49,7 @@ public class FriendInfoActivity extends AppCompatActivity {
         try {
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(PI.getGraph()));
             Bitmap imageBitmap = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
-            ImageButton.setImageBitmap(imageBitmap);
+            IV.setImageBitmap(imageBitmap);
             //ImageButton.setImageURI();
         }
         catch(Exception e){
