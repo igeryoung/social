@@ -53,7 +53,7 @@ public class PersonalInformationActivity extends AppCompatActivity {
     }
 
     private void show_last_change() {
-        ImageSet = true;
+
         EditText text_name = findViewById(R.id.name);
         EditText text_gender = findViewById(R.id.gender);
         EditText text_age = findViewById(R.id.age);
@@ -74,12 +74,14 @@ public class PersonalInformationActivity extends AppCompatActivity {
         text_interest.setText(mPI.getInterest());
         text_personality.setText(mPI.getInterest());
         //Toast.makeText(PersonalInformationActivity.this, mPI.getGraph(), Toast.LENGTH_SHORT).show();
+        imageUri = Uri.parse(mPI.getGraph());
         try {
-            System.out.println(mPI.getGraph());
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(mPI.getGraph()));
-
+            //System.out.println(mPI.getGraph());
+            Toast.makeText(PersonalInformationActivity.this, mPI.getGraph(), Toast.LENGTH_SHORT).show();
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
             imageBitmap = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
             ImageButton.setImageBitmap(imageBitmap);
+            ImageSet = true;
             //ImageButton.setImageURI();
         }
         catch(Exception e){
@@ -208,8 +210,8 @@ public class PersonalInformationActivity extends AppCompatActivity {
             //System.out.println(imageUri.);
             PersonalInformation PI = new PersonalInformation(account, name, imageUri.toString(), about, college, city, age, gender, interest, personality);
             mPInformationDB.insertPI(PI);
-
-            mImageDB.updateURL(getImageBitmap());
+            if(ImageSetOrNot())
+                mImageDB.updateURL(getImageBitmap());
             Toast.makeText(PersonalInformationActivity.this, "個人資料新增成功", Toast.LENGTH_SHORT).show();
 
             startSwipe();
