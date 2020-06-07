@@ -3,11 +3,18 @@ package com.example.social;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class FriendInfoActivity extends AppCompatActivity {
     PersonalInformation PI;
+    ImageButton ImageButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,5 +44,14 @@ public class FriendInfoActivity extends AppCompatActivity {
         text_about.setText(PI.getAbout());
         text_interest.setText(PI.getInterest());
         text_personality.setText(PI.getPersonality());
+        try {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(PI.getGraph()));
+            Bitmap imageBitmap = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
+            ImageButton.setImageBitmap(imageBitmap);
+            //ImageButton.setImageURI();
+        }
+        catch(Exception e){
+            Toast.makeText(FriendInfoActivity.this, "no image", Toast.LENGTH_SHORT).show();
+        }
     }
 }

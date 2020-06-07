@@ -6,10 +6,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,11 +66,12 @@ public class FriendActivity extends AppCompatActivity {
         class MyViewHolder extends RecyclerView.ViewHolder {
             public View itemView;
             public TextView name;
+            public ImageView photo;
             public MyViewHolder(View v) {
                 super(v);
                 itemView = v;
                 name = itemView.findViewById(R.id.name);
-
+                photo = itemView.findViewById(R.id.photo);
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -95,6 +100,16 @@ public class FriendActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
             holder.name.setText(data.get(position).get("name"));
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(data.get(position).get("uri")));
+                Bitmap imageBitmap = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
+                holder.photo.setImageBitmap(imageBitmap);
+                //ImageButton.setImageURI();
+            }
+            catch(Exception e){
+                Toast.makeText(FriendActivity.this, "no image", Toast.LENGTH_SHORT).show();
+            }
+
         }
 
         @Override
