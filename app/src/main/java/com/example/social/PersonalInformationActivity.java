@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.social.database.AccountDB;
 import com.example.social.database.ImageDB;
 import com.example.social.database.PersonalInformationDB;
+import com.squareup.picasso.Picasso;
 
 public class PersonalInformationActivity extends AppCompatActivity {
     private String account;
@@ -75,20 +76,8 @@ public class PersonalInformationActivity extends AppCompatActivity {
         text_personality.setText(mPI.getInterest());
         //Toast.makeText(PersonalInformationActivity.this, mPI.getGraph(), Toast.LENGTH_SHORT).show();
         imageUri = Uri.parse(mPI.getGraph());
-        try {
-            //System.out.println(mPI.getGraph());
-            Toast.makeText(PersonalInformationActivity.this, mPI.getGraph(), Toast.LENGTH_SHORT).show();
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(mPI.getGraph()) );
-            imageBitmap = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
-            ImageButton.setImageBitmap(imageBitmap);
-            ImageSet = true;
-            //ImageButton.setImageURI();
-        }
-        catch(Exception e){
-            Toast.makeText(PersonalInformationActivity.this, "no image", Toast.LENGTH_SHORT).show();
-        }
+        Picasso.get().load(mPI.getGraph()).into(ImageButton);
     }
-
     public void AddPhoto(View view) {
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(gallery, 100);
