@@ -137,6 +137,9 @@ public class SwipeActivity extends AppCompatActivity {
 
     private void swipeRight() {
         String tmp = "which position" + manager.getTopPosition();
+
+        //insert pos ACCOUNT -> DATABASE
+
         Toast.makeText(SwipeActivity.this, tmp, Toast.LENGTH_SHORT).show();
     }
 
@@ -151,6 +154,9 @@ public class SwipeActivity extends AppCompatActivity {
 
     private List<ItemModel> addList() {
         List<ItemModel> items = new ArrayList<>();
+
+        //put data(PI)
+
         items.add(new ItemModel(R.drawable.sample1, "Markonah", "24", "Jember"));
         items.add(new ItemModel(R.drawable.sample2, "Marpuah", "20", "Malang"));
         items.add(new ItemModel(R.drawable.sample3, "Sukijah", "27", "Jonggol"));

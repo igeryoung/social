@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.social.Account;
+import com.example.social.MainActivity;
 import com.example.social.PersonalInformation;
 import com.example.social.PersonalInformationActivity;
 import com.example.social.SwipeActivity;
@@ -112,8 +113,7 @@ public class AccountDB {
                             else{
                                 Log.d(TAG, "insert a new account!");
                                 insertAccount(mUserName, mPassword);
-                                Intent next_page = new Intent(context , PersonalInformationActivity.class );
-                                next_page.putExtra("mUserName" , mUserName);
+                                Intent next_page = new Intent(context , MainActivity.class );
                                 context.startActivity(next_page);
                             }
                         } else {

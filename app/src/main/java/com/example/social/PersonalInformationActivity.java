@@ -47,7 +47,7 @@ public class PersonalInformationActivity extends AppCompatActivity {
         this.mImageDB = new ImageDB(account);
         this.mPInformationDB = new PersonalInformationDB();
 
-        ImageButton = (ImageButton)findViewById(R.id.image);
+        ImageButton = findViewById(R.id.image);
         ImageSet = false;
         if(mPI != null)
             show_last_change();
@@ -76,7 +76,23 @@ public class PersonalInformationActivity extends AppCompatActivity {
         text_personality.setText(mPI.getInterest());
         //Toast.makeText(PersonalInformationActivity.this, mPI.getGraph(), Toast.LENGTH_SHORT).show();
         imageUri = Uri.parse(mPI.getGraph());
+
         Picasso.get().load(mPI.getGraph()).into(ImageButton);
+
+        try {
+            System.out.println(mPI.getGraph());
+            //Toast.makeText(PersonalInformationActivity.this, mPI.getGraph(), Toast.LENGTH_SHORT).show();
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri );
+            imageBitmap = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
+            ImageButton.setImageBitmap(imageBitmap);
+            ImageSet = true;
+            //ImageButton.setImageURI();
+        }
+        catch(Exception e){
+            System.out.println("[error] : " + e.getMessage());
+            Toast.makeText(PersonalInformationActivity.this, "no image", Toast.LENGTH_SHORT).show();
+        }
+
     }
     public void AddPhoto(View view) {
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
