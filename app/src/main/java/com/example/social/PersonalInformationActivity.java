@@ -81,34 +81,27 @@ public class PersonalInformationActivity extends AppCompatActivity {
         //Toast.makeText(PersonalInformationActivity.this, mPI.getGraph(), Toast.LENGTH_SHORT).show();
 
         imageUri = Uri.parse(mPI.getGraph());
-
-        Picasso.get().load(mPI.getGraph()).transform(new CircleTransform()).into(ImageButton);
-        Picasso.get().load(mPI.getGraph()).into(new Target() {
+        Target target = new Target() {
             @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) { imageBitmap = bitmap; }
-            @Override
-            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-                Toast.makeText(PersonalInformationActivity.this, "bitmap failed", Toast.LENGTH_SHORT).show();
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                imageBitmap = bitmap;
+                if(imageBitmap == null)
+                    Toast.makeText(PersonalInformationActivity.this, "bitmap null", Toast.LENGTH_SHORT).show();
             }
             @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {}
-        });
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+            }
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        };
+        ImageButton.setTag(target);
+        Picasso.get().load(mPI.getGraph()).transform(new CircleTransform()).into(ImageButton);
+        Picasso.get().load(mPI.getGraph()).into(target);
 
         ImageSet = true;
-
-//        try {
-//            System.out.println(mPI.getGraph());
-//            //Toast.makeText(PersonalInformationActivity.this, mPI.getGraph(), Toast.LENGTH_SHORT).show();
-//            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri );
-//            imageBitmap = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
-//            ImageButton.setImageBitmap(imageBitmap);
-//            ImageSet = true;
-//            //ImageButton.setImageURI();
-//        }
-//        catch(Exception e){
-//            System.out.println("[error] : " + e.getMessage());
-//            Toast.makeText(PersonalInformationActivity.this, "no image", Toast.LENGTH_SHORT).show();
-//        }
 
     }
     public void AddPhoto(View view) {
@@ -124,29 +117,21 @@ public class PersonalInformationActivity extends AppCompatActivity {
             imageUri = data.getData();
 
             Picasso.get().load(imageUri).transform(new CircleTransform()).into(ImageButton);
-//            Picasso.get().load(imageUri).into(new Target() {
-//                @Override
-//                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) { imageBitmap = bitmap; }
-//                @Override
-//                public void onBitmapFailed(Exception e, Drawable errorDrawable) {}
-//                @Override
-//                public void onPrepareLoad(Drawable placeHolderDrawable) {}
-//            });
-            //System.out.println(mPI.getGraph());
-            //Toast.makeText(PersonalInformationActivity.this, mPI.getGraph(), Toast.LENGTH_SHORT).show();
             Bitmap bitmap = null;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri );
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            imageBitmap = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
+            //imageBitmap = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
+            imageBitmap = bitmap;
             ImageButton.setImageBitmap(imageBitmap);
             ImageSet = true;
 //            ImageSet = true;
 
             Context c = this.getApplicationContext();
             absolutePath = getFilePath_below19(c, imageUri);
+
 
             //Toast.makeText(PersonalInformationActivity.this, absolutePath, Toast.LENGTH_SHORT).show();
 
