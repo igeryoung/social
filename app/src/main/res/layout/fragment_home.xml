@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:text="個人資料"
             android:textSize="25dp"
-            android:onClick="person"
+            android:id="@+id/dislike"
             ></Button>
 
         <Button
@@ -43,7 +43,7 @@
             android:layout_marginLeft="10dp"
             android:text="好友名單"
             android:textSize="25dp"
-            android:onClick="friend"
+            android:id="@+id/like"
             ></Button>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.constraintlayout.widget.ConstraintLayout>

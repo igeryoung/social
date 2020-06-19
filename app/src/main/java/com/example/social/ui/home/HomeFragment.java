@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +58,26 @@ public class HomeFragment extends Fragment {
 
         System.out.println("SwipeActivity get username = " + account);
         intiPhoto(root);
+
+        Button button = (Button) root.findViewById(R.id.like);
+        button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                System.out.println("LIKE");
+                swipeRight();
+            }
+        });
+        Button button2 = (Button) root.findViewById(R.id.dislike);
+        button2.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                swipeLeft();
+            }
+        });
         return root;
     }
     private void intiPhoto(View root) {
@@ -132,27 +153,25 @@ public class HomeFragment extends Fragment {
         cardStackView.setItemAnimator(new DefaultItemAnimator());
     }
 
-    private void swipeBottom() {
+    public void swipeBottom() {
         String tmp = "which position" + manager.getTopPosition();
         System.out.println(manager.getTopPosition());
     }
 
-    private void swipeLeft() {
+    public void swipeLeft() {
         String tmp = "which position" + manager.getTopPosition();
         System.out.println(manager.getTopPosition());
     }
 
-    private void swipeTop() {
+    public void swipeTop() {
         String tmp = "which position" + manager.getTopPosition();
         System.out.println(manager.getTopPosition());
     }
 
-    private void swipeRight() {
+    public void swipeRight() {
         String tmp = "which position" + manager.getTopPosition();
         System.out.println(manager.getTopPosition());
         //insert pos ACCOUNT -> DATABASE
-
-
     }
 
     private void paginate() {
@@ -169,4 +188,5 @@ public class HomeFragment extends Fragment {
         items.add(new ItemModel("https://firebasestorage.googleapis.com/v0/b/social-d1c8c.appspot.com/o/a%2Fthumbnail.jpg?alt=media&token=642fd631-b8c6-4a1f-b501-05e941b4454a", "Markonah", "", "Jember"));
         return items;
     }
+
 }

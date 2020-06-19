@@ -146,4 +146,25 @@ public class PersonalInformationDB {
                     }
                 });
     }
+
+    public void getOtherPIinMain(final Context context, int number, final String mUsername){
+        db.collection("personalInformation")
+                .limit(number)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            ArrayList<PersonalInformation> strangerList = new ArrayList<PersonalInformation>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                strangerList.add(document.toObject(PersonalInformation.class));
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+
+                        } else{
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
 }
