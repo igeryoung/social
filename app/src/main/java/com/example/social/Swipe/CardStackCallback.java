@@ -1,4 +1,4 @@
-package com.example.social;
+package com.example.social.Swipe;
 
 import androidx.recyclerview.widget.DiffUtil;
 

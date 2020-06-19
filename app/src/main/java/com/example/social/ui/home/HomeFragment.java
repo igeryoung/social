@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,11 +15,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.example.social.CardStackAdapter;
-import com.example.social.CardStackCallback;
-import com.example.social.ItemModel;
+import com.example.social.Swipe.CardStackAdapter;
+import com.example.social.Swipe.CardStackCallback;
+import com.example.social.Swipe.ItemModel;
 import com.example.social.PersonalInformation;
 import com.example.social.R;
+import com.example.social.SwipeActivity;
 import com.example.social.database.PersonalInformationDB;
 import com.example.social.database.RelationDB;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
@@ -132,22 +134,22 @@ public class HomeFragment extends Fragment {
 
     private void swipeBottom() {
         String tmp = "which position" + manager.getTopPosition();
-
+        System.out.println(manager.getTopPosition());
     }
 
     private void swipeLeft() {
         String tmp = "which position" + manager.getTopPosition();
-
+        System.out.println(manager.getTopPosition());
     }
 
     private void swipeTop() {
         String tmp = "which position" + manager.getTopPosition();
-
+        System.out.println(manager.getTopPosition());
     }
 
     private void swipeRight() {
         String tmp = "which position" + manager.getTopPosition();
-
+        System.out.println(manager.getTopPosition());
         //insert pos ACCOUNT -> DATABASE
 
 

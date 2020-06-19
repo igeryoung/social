@@ -1,4 +1,4 @@
-package com.example.social;
+package com.example.social.Swipe;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.social.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

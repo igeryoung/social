@@ -1,21 +1,12 @@
-package com.example.social;
+package com.example.social.Swipe;
 
 import android.net.Uri;
 
 public class ItemModel {
-    //    private int image;
+
     private String name, city, age;
     private String image;
-//
-//    public ItemModel() {
-//    }
 
-    //    public ItemModel(int image, String name, String city, String age) {
-//        this.image = image;
-//        this.name = name;
-//        this.city = city;
-//        this.age = age;
-//    }
     public ItemModel(String image, String name, String city, String age) {
         this.image = image;
         this.name = name;

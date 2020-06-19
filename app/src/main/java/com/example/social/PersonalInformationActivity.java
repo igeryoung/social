@@ -31,11 +31,8 @@ public class PersonalInformationActivity extends AppCompatActivity {
     private PersonalInformation mPI;
 
     ImageButton ImageButton;
+    private Photo addphoto;
 
-    boolean ImageSet;
-    Uri imageUri;
-    Bitmap imageBitmap;
-    String absolutePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +49,9 @@ public class PersonalInformationActivity extends AppCompatActivity {
         this.mPInformationDB = new PersonalInformationDB();
 
         ImageButton = findViewById(R.id.image);
-        ImageSet = false;
+        addphoto = new Photo();
+        ImageButton.setTag(addphoto.target);
+
         if(mPI != null)
             show_last_change();
     }
@@ -78,117 +77,35 @@ public class PersonalInformationActivity extends AppCompatActivity {
         text_about.setText(mPI.getAbout());
         text_interest.setText(mPI.getInterest());
         text_personality.setText(mPI.getInterest());
-        //Toast.makeText(PersonalInformationActivity.this, mPI.getGraph(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(PersonalInformationActivity.this, mPI.getGraph(), Toast.LENGTH_SHORT).show();
 
-        imageUri = Uri.parse(mPI.getGraph());
-        Target target = new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                imageBitmap = bitmap;
-                if(imageBitmap == null)
-                    Toast.makeText(PersonalInformationActivity.this, "bitmap null", Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-
-            }
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-            }
-        };
-        ImageButton.setTag(target);
         Picasso.get().load(mPI.getGraph()).transform(new CircleTransform()).into(ImageButton);
-        Picasso.get().load(mPI.getGraph()).into(target);
-
-        ImageSet = true;
-
+        addphoto.setBitmapByURL(mPI.getGraph());
     }
     public void AddPhoto(View view) {
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(gallery, 100);
-
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == RESULT_OK && requestCode == 100){
-            imageUri = data.getData();
-
-            Picasso.get().load(imageUri).transform(new CircleTransform()).into(ImageButton);
-            Bitmap bitmap = null;
+            Picasso.get().load(data.getData()).transform(new CircleTransform()).into(ImageButton);
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri );
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+                addphoto.setBitmap(bitmap);
+                addphoto.setUri(data.getData());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            //imageBitmap = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
-            imageBitmap = bitmap;
-            ImageButton.setImageBitmap(imageBitmap);
-            ImageSet = true;
-//            ImageSet = true;
-
-            Context c = this.getApplicationContext();
-            absolutePath = getFilePath_below19(c, imageUri);
-
-
-            //Toast.makeText(PersonalInformationActivity.this, absolutePath, Toast.LENGTH_SHORT).show();
-
-            //System.out.println("absolute path => " + absolutePath);
         }
         else {
-            //這次選取有沒有照片
             Toast.makeText(PersonalInformationActivity.this, "未選取照片", Toast.LENGTH_SHORT).show();
         }
     }
 
-    //現在有沒有存照片
-    public boolean ImageSetOrNot(){
-        return ImageSet;
-    }
-    //回傳絕對路徑
-    public String getAbsolutePath(){
-        if (ImageSetOrNot() == false){
-            Toast.makeText(PersonalInformationActivity.this, "未選取照片", Toast.LENGTH_SHORT).show();
-            return null;
-        }
-        return absolutePath;
-    }
-    //回傳圖片Bitmap
-    public Bitmap getImageBitmap(){
-        if (ImageSetOrNot() == false){
-            Toast.makeText(PersonalInformationActivity.this, "未選取照片", Toast.LENGTH_SHORT).show();
-            return null;
-        }
-        return imageBitmap;
-    }
-    //回傳圖片Uri
-    public Uri getImageUri() {
-        if (ImageSetOrNot() == false){
-            Toast.makeText(PersonalInformationActivity.this, "未選取照片", Toast.LENGTH_SHORT).show();
-            return null;
-        }
-        return imageUri;
-    }
-
-    // reference from https://blog.csdn.net/smileiam/article/details/79753745
-    public  static String getFilePath_below19(Context context, Uri uri) {
-        Cursor cursor = null ;
-        String path = "" ;
-        try {
-            String[] proj = {MediaStore.Images.Media.DATA};
-            cursor = context.getContentResolver().query(uri, proj, null , null , null );
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            path =cursor.getString(column_index);
-        } finally {
-            if (cursor != null ) {
-                cursor.close();
-            }
-        }
-        return path;
-    }
 
     public void Certain(View view) {
         try{
@@ -210,7 +127,7 @@ public class PersonalInformationActivity extends AppCompatActivity {
             String personality = text_personality.getText().toString();
 
 
-            if(!ImageSetOrNot()){
+            if(!addphoto.ImageSetOrNot()){
                 throw new PersonalInformationException(PersonalInformationException.ErrorType.image_blank);
             }else if(text_name.getText().length() == 0){
                 throw new PersonalInformationException(PersonalInformationException.ErrorType.name_blank);
@@ -230,10 +147,10 @@ public class PersonalInformationActivity extends AppCompatActivity {
                 throw new PersonalInformationException(PersonalInformationException.ErrorType.interest_blank);
             }
             //System.out.println(imageUri.);
-            PersonalInformation PI = new PersonalInformation(account, name, imageUri.toString(), about, college, city, age, gender, interest, personality);
+            PersonalInformation PI = new PersonalInformation(account, name, addphoto.getImageUri().toString(), about, college, city, age, gender, interest, personality);
             mPInformationDB.insertPI(PI);
-            if(ImageSetOrNot())
-                mImageDB.updateURL(getImageBitmap());
+            if(addphoto.ImageSetOrNot())
+                mImageDB.updateURL(addphoto.getImageBitmap());
             Toast.makeText(PersonalInformationActivity.this, "個人資料新增成功", Toast.LENGTH_SHORT).show();
 
             startSwipe();
