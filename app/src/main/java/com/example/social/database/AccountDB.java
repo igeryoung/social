@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 
 import com.example.social.Account;
 import com.example.social.MainActivity;
-import com.example.social.PersonalInformation;
 import com.example.social.PersonalInformationActivity;
 import com.example.social.SwipeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,7 +17,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 
 public class AccountDB {
     private static final String TAG = "accountMsg";
@@ -49,7 +47,7 @@ public class AccountDB {
                                     else{
                                         Log.d(TAG, "Correct password, already have PI!");
                                         PersonalInformationDB mPInformationDB = new PersonalInformationDB();
-                                        mPInformationDB.getOtherPIinMain(context, 20, account.getAccount());
+                                        mPInformationDB.getOtherPI(context, 20, account.getAccount());
                                         Intent next_page = new Intent(context , SwipeActivity.class );
                                         next_page.putExtra("account" , account.getAccount());
                                         context.startActivity(next_page);

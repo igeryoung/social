@@ -8,10 +8,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
-<<<<<<< HEAD
 import android.widget.ImageButton;
-=======
->>>>>>> b635ba3081794fdeb9d9c3dc698e920ce8c57967
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -67,32 +64,10 @@ public class HomeFragment extends Fragment {
         System.out.println("SwipeActivity get username = " + account);
         intiPhoto(root);
 
-<<<<<<< HEAD
         Like = (ImageButton) root.findViewById(R.id.like);
         Like.setOnClickListener(likeOnClickListener);
         disLike = (ImageButton) root.findViewById(R.id.dislike);
         disLike.setOnClickListener(dislikeOnClickListener);
-=======
-        Button button = (Button) root.findViewById(R.id.like);
-        button.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                System.out.println("LIKE");
-                swipeRight();
-            }
-        });
-        Button button2 = (Button) root.findViewById(R.id.dislike);
-        button2.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                swipeLeft();
-            }
-        });
->>>>>>> b635ba3081794fdeb9d9c3dc698e920ce8c57967
         return root;
     }
 
@@ -172,30 +147,27 @@ public class HomeFragment extends Fragment {
 
     }
 
-    public void swipeBottom() {
+    private void swipeBottom() {
         String tmp = "which position" + manager.getTopPosition();
         System.out.println(manager.getTopPosition());
     }
 
-    public void swipeLeft() {
+    private void swipeLeft() {
         String tmp = "which position" + manager.getTopPosition();
         System.out.println(manager.getTopPosition());
     }
 
-    public void swipeTop() {
+    private void swipeTop() {
         String tmp = "which position" + manager.getTopPosition();
         System.out.println(manager.getTopPosition());
         //insert pos ACCOUNT -> DATABASE
     }
 
-    public void swipeRight() {
+    private void swipeRight() {
         String tmp = "which position" + manager.getTopPosition();
         System.out.println(manager.getTopPosition());
         //insert pos ACCOUNT -> DATABASE
-<<<<<<< HEAD
 
-=======
->>>>>>> b635ba3081794fdeb9d9c3dc698e920ce8c57967
     }
 
 
@@ -244,5 +216,4 @@ public class HomeFragment extends Fragment {
 
         return items;
     }
-
 }

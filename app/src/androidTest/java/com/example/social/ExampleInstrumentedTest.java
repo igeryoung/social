@@ -17,11 +17,7 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
-<<<<<<< HEAD
-    @Test
-=======
     @SwipeActivity
->>>>>>> f1f0d3f0da2463f65475cb53e849a56f36788925
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();

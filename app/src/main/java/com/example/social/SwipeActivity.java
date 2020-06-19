@@ -1,15 +1,14 @@
 package com.example.social;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
-import android.widget.ImageView;
 
 import com.example.social.database.PersonalInformationDB;
 import com.example.social.database.RelationDB;
 import com.google.android.material.navigation.NavigationView;
-import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
@@ -29,7 +28,7 @@ public class SwipeActivity extends AppCompatActivity implements NavigationView.O
     private AppBarConfiguration mAppBarConfiguration;
     private String account;
     private ArrayList<PersonalInformation> strangerList;
-    private Photo addphoto;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,18 +43,11 @@ public class SwipeActivity extends AppCompatActivity implements NavigationView.O
         System.out.println("SwipeActivity get username = " + account);
 
         //setNavigationViewListener();
-         Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView)findViewById(R.id.nav_view);
-
-//        ImageView photo = findViewById(R.id.PhotoInMenu);
-//        addphoto = new Photo();
-//        photo.setTag(addphoto.target);
-//        Picasso.get().load(mPI.getGraph()).transform(new CircleTransform()).into(photo);
-//        addphoto.setBitmapByURL(mPI.getGraph());
-
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -84,11 +76,8 @@ public class SwipeActivity extends AppCompatActivity implements NavigationView.O
                 || super.onSupportNavigateUp();
     }
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> b635ba3081794fdeb9d9c3dc698e920ce8c57967
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 

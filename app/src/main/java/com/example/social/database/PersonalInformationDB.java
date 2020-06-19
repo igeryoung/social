@@ -2,8 +2,6 @@ package com.example.social.database;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -11,7 +9,6 @@ import androidx.annotation.NonNull;
 import com.example.social.FriendActivity;
 import com.example.social.PersonalInformation;
 import com.example.social.PersonalInformationActivity;
-import com.example.social.SwipeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -139,34 +136,10 @@ public class PersonalInformationDB {
                                 strangerList.add(document.toObject(PersonalInformation.class));
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                             }
-//                            Message msg = new Message();
-//                            msg.obj = strangerList;
-//                            handler.sendMessage(msg);
                             Intent swipe_page = new Intent(context , FriendActivity.class);
                             swipe_page.putExtra("account" , mUsername);
                             swipe_page.putExtra("strangerList", strangerList);
                             context.startActivity(swipe_page);
-                        } else{
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-    }
-
-    public void getOtherPIinMain(final Context context, int number, final String mUsername){
-        db.collection("personalInformation")
-                .limit(number)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            ArrayList<PersonalInformation> strangerList = new ArrayList<PersonalInformation>();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                strangerList.add(document.toObject(PersonalInformation.class));
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                            }
-
                         } else{
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }

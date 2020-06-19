@@ -4,14 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-import android.graphics.drawable.Drawable;
->>>>>>> f1f0d3f0da2463f65475cb53e849a56f36788925
-import android.net.Uri;
->>>>>>> b635ba3081794fdeb9d9c3dc698e920ce8c57967
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -25,15 +17,8 @@ import com.example.social.database.AccountDB;
 import com.example.social.database.ImageDB;
 import com.example.social.database.PersonalInformationDB;
 import com.squareup.picasso.Picasso;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-import com.squareup.picasso.Target;
->>>>>>> b635ba3081794fdeb9d9c3dc698e920ce8c57967
 
 import java.io.IOException;
->>>>>>> f1f0d3f0da2463f65475cb53e849a56f36788925
 
 public class PersonalInformationActivity extends AppCompatActivity {
     private String account;
@@ -43,16 +28,8 @@ public class PersonalInformationActivity extends AppCompatActivity {
     private PersonalInformation mPI;
 
     ImageButton ImageButton;
-<<<<<<< HEAD
-
-    boolean ImageSet;
-    Uri imageUri;
-    Bitmap imageBitmap;
-    String absolutePath;
-=======
     private Photo addphoto;
 
->>>>>>> f1f0d3f0da2463f65475cb53e849a56f36788925
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +46,9 @@ public class PersonalInformationActivity extends AppCompatActivity {
         this.mPInformationDB = new PersonalInformationDB();
 
         ImageButton = findViewById(R.id.image);
-<<<<<<< HEAD
-        ImageSet = false;
-=======
         addphoto = new Photo();
         ImageButton.setTag(addphoto.target);
 
->>>>>>> f1f0d3f0da2463f65475cb53e849a56f36788925
         if(mPI != null)
             show_last_change();
     }
@@ -101,68 +74,21 @@ public class PersonalInformationActivity extends AppCompatActivity {
         text_about.setText(mPI.getAbout());
         text_interest.setText(mPI.getInterest());
         text_personality.setText(mPI.getInterest());
-<<<<<<< HEAD
-        //Toast.makeText(PersonalInformationActivity.this, mPI.getGraph(), Toast.LENGTH_SHORT).show();
-        imageUri = Uri.parse(mPI.getGraph());
-
-        Picasso.get().load(mPI.getGraph()).into(ImageButton);
-
-        try {
-            System.out.println(mPI.getGraph());
-            //Toast.makeText(PersonalInformationActivity.this, mPI.getGraph(), Toast.LENGTH_SHORT).show();
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri );
-            imageBitmap = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
-            ImageButton.setImageBitmap(imageBitmap);
-            ImageSet = true;
-            //ImageButton.setImageURI();
-        }
-        catch(Exception e){
-            System.out.println("[error] : " + e.getMessage());
-            Toast.makeText(PersonalInformationActivity.this, "no image", Toast.LENGTH_SHORT).show();
-        }
-
-=======
         Toast.makeText(PersonalInformationActivity.this, mPI.getGraph(), Toast.LENGTH_SHORT).show();
 
         Picasso.get().load(mPI.getGraph()).transform(new CircleTransform()).into(ImageButton);
         addphoto.setBitmapByURL(mPI.getGraph());
->>>>>>> f1f0d3f0da2463f65475cb53e849a56f36788925
     }
     public void AddPhoto(View view) {
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(gallery, 100);
-<<<<<<< HEAD
-
-    }
-=======
     }
 
->>>>>>> f1f0d3f0da2463f65475cb53e849a56f36788925
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == RESULT_OK && requestCode == 100){
-<<<<<<< HEAD
-            imageUri = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                imageBitmap = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
-                ImageButton.setImageBitmap(imageBitmap);
-                //ImageButton.setImageURI(imageUri);
-                ImageSet = true;
-            } catch (Exception e){
-                Toast.makeText(PersonalInformationActivity.this, "Empty file source", Toast.LENGTH_SHORT).show();
-            }
-            Context c = this.getApplicationContext();
-            absolutePath = getFilePath_below19(c, imageUri);
-            //Toast.makeText(PersonalInformationActivity.this, absolutePath, Toast.LENGTH_SHORT).show();
-
-            System.out.println("absolute path => " + absolutePath);
-        }
-        else {
-            //這次選取有沒有照片
-=======
             Picasso.get().load(data.getData()).transform(new CircleTransform()).into(ImageButton);
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
@@ -173,60 +99,10 @@ public class PersonalInformationActivity extends AppCompatActivity {
             }
         }
         else {
->>>>>>> f1f0d3f0da2463f65475cb53e849a56f36788925
             Toast.makeText(PersonalInformationActivity.this, "未選取照片", Toast.LENGTH_SHORT).show();
         }
     }
 
-<<<<<<< HEAD
-    //現在有沒有存照片
-    public boolean ImageSetOrNot(){
-        return ImageSet;
-    }
-    //回傳絕對路徑
-    public String getAbsolutePath(){
-        if (ImageSetOrNot() == false){
-            Toast.makeText(PersonalInformationActivity.this, "未選取照片", Toast.LENGTH_SHORT).show();
-            return null;
-        }
-        return absolutePath;
-    }
-    //回傳圖片Bitmap
-    public Bitmap getImageBitmap(){
-        if (ImageSetOrNot() == false){
-            Toast.makeText(PersonalInformationActivity.this, "未選取照片", Toast.LENGTH_SHORT).show();
-            return null;
-        }
-        return imageBitmap;
-    }
-    //回傳圖片Uri
-    public Uri getImageUri() {
-        if (ImageSetOrNot() == false){
-            Toast.makeText(PersonalInformationActivity.this, "未選取照片", Toast.LENGTH_SHORT).show();
-            return null;
-        }
-        return imageUri;
-    }
-
-    // reference from https://blog.csdn.net/smileiam/article/details/79753745
-    public  static String getFilePath_below19(Context context, Uri uri) {
-        Cursor cursor = null ;
-        String path = "" ;
-        try {
-            String[] proj = {MediaStore.Images.Media.DATA};
-            cursor = context.getContentResolver().query(uri, proj, null , null , null );
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            path =cursor.getString(column_index);
-        } finally {
-            if (cursor != null ) {
-                cursor.close();
-            }
-        }
-        return path;
-    }
-=======
->>>>>>> f1f0d3f0da2463f65475cb53e849a56f36788925
 
     public void Certain(View view) {
         try{
@@ -248,11 +124,7 @@ public class PersonalInformationActivity extends AppCompatActivity {
             String personality = text_personality.getText().toString();
 
 
-<<<<<<< HEAD
-            if(!ImageSetOrNot()){
-=======
             if(!addphoto.ImageSetOrNot()){
->>>>>>> f1f0d3f0da2463f65475cb53e849a56f36788925
                 throw new PersonalInformationException(PersonalInformationException.ErrorType.image_blank);
             }else if(text_name.getText().length() == 0){
                 throw new PersonalInformationException(PersonalInformationException.ErrorType.name_blank);
@@ -272,17 +144,10 @@ public class PersonalInformationActivity extends AppCompatActivity {
                 throw new PersonalInformationException(PersonalInformationException.ErrorType.interest_blank);
             }
             //System.out.println(imageUri.);
-<<<<<<< HEAD
-            PersonalInformation PI = new PersonalInformation(account, name, imageUri.toString(), about, college, city, age, gender, interest, personality);
-            mPInformationDB.insertPI(PI);
-            if(ImageSetOrNot())
-                mImageDB.updateURL(getImageBitmap());
-=======
             PersonalInformation PI = new PersonalInformation(account, name, addphoto.getImageUri().toString(), about, college, city, age, gender, interest, personality);
             mPInformationDB.insertPI(PI);
             if(addphoto.ImageSetOrNot())
                 mImageDB.updateURL(addphoto.getImageBitmap());
->>>>>>> f1f0d3f0da2463f65475cb53e849a56f36788925
             Toast.makeText(PersonalInformationActivity.this, "個人資料新增成功", Toast.LENGTH_SHORT).show();
 
             startSwipe();
