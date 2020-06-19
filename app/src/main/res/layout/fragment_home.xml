@@ -40,7 +40,7 @@
             android:layout_height="50dp"
             android:layout_gravity="clip_horizontal"
             android:layout_marginLeft="10dp"
-            android:background="#F3E2E2"
+            android:background="@drawable/circle_button"
 
             android:src="@drawable/close"
             android:textSize="25dp"></ImageButton>
@@ -50,7 +50,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
-            android:background="#CBDAF6"
+            android:background="@drawable/circle_button_red"
             android:src="@drawable/heart"
             android:textSize="25dp"></ImageButton>
     </androidx.appcompat.widget.LinearLayoutCompat>
