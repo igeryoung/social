@@ -2,6 +2,8 @@ package com.example.social.database;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -35,6 +37,7 @@ public class PersonalInformationDB {
 
     /** PersonalInformation.id == userName ? */
     public void insertPI(PersonalInformation PI){
+        System.out.println(PI.getId());
         db.collection("personalInformation").document(PI.getId()).set(PI);
         db.collection("account")
                 .document(PI.getId())
@@ -137,6 +140,10 @@ public class PersonalInformationDB {
                                 strangerList.add(document.toObject(PersonalInformation.class));
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                             }
+//                            Message msg = new Message();
+//                            msg.obj = strangerList;
+//                            handler.sendMessage(msg);
+
                             Intent swipe_page = new Intent(context , FriendActivity.class);
                             swipe_page.putExtra("account" , mUsername);
                             swipe_page.putExtra("strangerList", strangerList);

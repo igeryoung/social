@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -34,6 +36,7 @@ public class SwipeActivity extends AppCompatActivity {
     private PersonalInformationDB mPInformationDB;
     private RelationDB mRelationDB;
     private ArrayList<PersonalInformation> strangerList;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +44,19 @@ public class SwipeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tinderswipe);
         mPInformationDB = new PersonalInformationDB();
         mRelationDB = new RelationDB();
+//        handler = new Handler(){
+//            @Override
+//            public void handleMessage(Message msg){
+//                super.handleMessage(msg);
+//
+//            }
+//        }
 
         Intent intent = getIntent();
         account = intent.getStringExtra("account");
-        strangerList = (ArrayList<PersonalInformation>) intent.getSerializableExtra("strangerList");
+        //strangerList = (ArrayList<PersonalInformation>) intent.getSerializableExtra("strangerList");
         System.out.println("SwipeActivity get username = " + account);
+
 
         CardStackView cardStackView = findViewById(R.id.card_stack_view);
         manager = new CardStackLayoutManager(this, new CardStackListener() {
