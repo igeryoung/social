@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -15,12 +14,11 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.example.social.Swipe.CardStackAdapter;
-import com.example.social.Swipe.CardStackCallback;
-import com.example.social.Swipe.ItemModel;
+import com.example.social.Image.CardStackAdapter;
+import com.example.social.Image.CardStackCallback;
+import com.example.social.Image.ItemModel;
 import com.example.social.PersonalInformation;
 import com.example.social.R;
-import com.example.social.SwipeActivity;
 import com.example.social.database.PersonalInformationDB;
 import com.example.social.database.RelationDB;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;

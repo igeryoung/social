@@ -1,4 +1,4 @@
-package com.example.social;
+package com.example.social.Image;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
