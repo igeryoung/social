@@ -29,10 +29,20 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent">
 
+<<<<<<< HEAD
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/card_stack_view">
+=======
+        <Button
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="個人資料"
+            android:textSize="25dp"
+            android:id="@+id/dislike"
+            ></Button>
+>>>>>>> b635ba3081794fdeb9d9c3dc698e920ce8c57967
 
         <ImageButton
             android:id="@+id/dislike"
@@ -50,8 +60,15 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
+<<<<<<< HEAD
             android:background="#CBDAF6"
             android:src="@drawable/heart"
             android:textSize="25dp"></ImageButton>
+=======
+            android:text="好友名單"
+            android:textSize="25dp"
+            android:id="@+id/like"
+            ></Button>
+>>>>>>> b635ba3081794fdeb9d9c3dc698e920ce8c57967
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.constraintlayout.widget.ConstraintLayout>
