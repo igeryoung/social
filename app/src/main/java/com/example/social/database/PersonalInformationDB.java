@@ -37,7 +37,6 @@ public class PersonalInformationDB {
 
     /** PersonalInformation.id == userName ? */
     public void insertPI(PersonalInformation PI){
-        System.out.println(PI.getId());
         db.collection("personalInformation").document(PI.getId()).set(PI);
         db.collection("account")
                 .document(PI.getId())
@@ -143,11 +142,31 @@ public class PersonalInformationDB {
 //                            Message msg = new Message();
 //                            msg.obj = strangerList;
 //                            handler.sendMessage(msg);
-
                             Intent swipe_page = new Intent(context , FriendActivity.class);
                             swipe_page.putExtra("account" , mUsername);
                             swipe_page.putExtra("strangerList", strangerList);
                             context.startActivity(swipe_page);
+                        } else{
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    public void getOtherPIinMain(final Context context, int number, final String mUsername){
+        db.collection("personalInformation")
+                .limit(number)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            ArrayList<PersonalInformation> strangerList = new ArrayList<PersonalInformation>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                strangerList.add(document.toObject(PersonalInformation.class));
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+
                         } else{
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }

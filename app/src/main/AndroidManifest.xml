@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.social">
+<<<<<<< HEAD
+=======
+    <uses-permission android:name="android.permission.INTERNET" />
+>>>>>>> f1f0d3f0da2463f65475cb53e849a56f36788925
 
     <application
         android:allowBackup="true"
@@ -10,12 +14,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity android:name=".FriendInfoActivity"></activity>
         <activity android:name=".FriendActivity" />
         <activity android:name=".PersonalInformationActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".SwipeActivity" />
         <activity android:name=".AddPhoto" />
+=======
+        <activity
+            android:name=".SwipeActivity"
+            android:label="@string/title_activity_test"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".FriendInfoActivity" />
+        <activity android:name=".FriendActivity" />
+        <activity android:name=".PersonalInformationActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".Photo" />
+>>>>>>> f1f0d3f0da2463f65475cb53e849a56f36788925
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
