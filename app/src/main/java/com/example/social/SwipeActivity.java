@@ -76,13 +76,7 @@ public class SwipeActivity extends AppCompatActivity implements NavigationView.O
                 || super.onSupportNavigateUp();
     }
 
-    public void person(View view) {
-        //mPInformationDB.getMyPI(Test.this, account);
-    }
 
-    public void friend(View view) {
-        //mRelationDB.getFriendList(Test.this, account);
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

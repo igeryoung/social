@@ -5,7 +5,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,7 +28,9 @@ import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.CardStackView;
 import com.yuyakaido.android.cardstackview.Direction;
+import com.yuyakaido.android.cardstackview.Duration;
 import com.yuyakaido.android.cardstackview.StackFrom;
+import com.yuyakaido.android.cardstackview.SwipeAnimationSetting;
 import com.yuyakaido.android.cardstackview.SwipeableMethod;
 
 import java.util.ArrayList;
@@ -44,19 +49,28 @@ public class HomeFragment extends Fragment {
     private Object HomeFragment;
     private Object AfterTest;
 
+    private ImageButton Like;
+    private ImageButton disLike;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+
         mPInformationDB = new PersonalInformationDB();
         mRelationDB = new RelationDB();
-
+        System.out.println("55");
         System.out.println("SwipeActivity get username = " + account);
         intiPhoto(root);
+
+        Like = (ImageButton) root.findViewById(R.id.like);
+        Like.setOnClickListener(likeOnClickListener);
+        disLike = (ImageButton) root.findViewById(R.id.dislike);
+        disLike.setOnClickListener(dislikeOnClickListener);
         return root;
     }
+
     private void intiPhoto(View root) {
         cardStackView = root.findViewById(R.id.card_stack_view);
         manager = new CardStackLayoutManager(getActivity(), new CardStackListener() {
@@ -73,7 +87,7 @@ public class HomeFragment extends Fragment {
                     swipeRight();
                 }
                 if (direction == Direction.Top){
-
+                    //add into like list
                     swipeTop();
                 }
                 if (direction == Direction.Left){
@@ -122,12 +136,15 @@ public class HomeFragment extends Fragment {
         manager.setMaxDegree(20.0f);
         manager.setDirections(Direction.FREEDOM);
         manager.setCanScrollHorizontal(true);
-        manager.setSwipeableMethod(SwipeableMethod.Manual);
+        manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
+
         manager.setOverlayInterpolator(new LinearInterpolator());
         adapter = new CardStackAdapter(addList());
         cardStackView.setLayoutManager(manager);
         cardStackView.setAdapter(adapter);
         cardStackView.setItemAnimator(new DefaultItemAnimator());
+
+
     }
 
     private void swipeBottom() {
@@ -143,6 +160,7 @@ public class HomeFragment extends Fragment {
     private void swipeTop() {
         String tmp = "which position" + manager.getTopPosition();
         System.out.println(manager.getTopPosition());
+        //insert pos ACCOUNT -> DATABASE
     }
 
     private void swipeRight() {
@@ -150,8 +168,36 @@ public class HomeFragment extends Fragment {
         System.out.println(manager.getTopPosition());
         //insert pos ACCOUNT -> DATABASE
 
-
     }
+
+
+    private Button.OnClickListener likeOnClickListener = new Button.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            // TODO Auto-generated method stub
+            SwipeAnimationSetting setting = new SwipeAnimationSetting.Builder()
+                    .setDirection(Direction.Right)
+                    .setDuration(Duration.Normal.duration)
+                    .setInterpolator(new AccelerateInterpolator())
+                    .build();
+            manager.setSwipeAnimationSetting(setting);
+            cardStackView.swipe();
+        }
+    };
+
+    private Button.OnClickListener dislikeOnClickListener = new Button.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            // TODO Auto-generated method stub
+            SwipeAnimationSetting setting = new SwipeAnimationSetting.Builder()
+                    .setDirection(Direction.Left)
+                    .setDuration(Duration.Normal.duration)
+                    .setInterpolator(new AccelerateInterpolator())
+                    .build();
+            manager.setSwipeAnimationSetting(setting);
+            cardStackView.swipe();
+        }
+    };
 
     private void paginate() {
         List<ItemModel> old = adapter.getItems();
@@ -165,6 +211,9 @@ public class HomeFragment extends Fragment {
     private List<ItemModel> addList() {
         List<ItemModel> items = new ArrayList<>();
         items.add(new ItemModel("https://firebasestorage.googleapis.com/v0/b/social-d1c8c.appspot.com/o/a%2Fthumbnail.jpg?alt=media&token=642fd631-b8c6-4a1f-b501-05e941b4454a", "Markonah", "", "Jember"));
+        items.add(new ItemModel("https://firebasestorage.googleapis.com/v0/b/social-d1c8c.appspot.com/o/a%2Fthumbnail.jpg?alt=media&token=642fd631-b8c6-4a1f-b501-05e941b4454a", "Markonah", "", "Jember"));
+        items.add(new ItemModel("https://firebasestorage.googleapis.com/v0/b/social-d1c8c.appspot.com/o/a%2Fthumbnail.jpg?alt=media&token=642fd631-b8c6-4a1f-b501-05e941b4454a", "Markonah", "", "Jember"));
+
         return items;
     }
 }
