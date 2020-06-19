@@ -146,4 +146,27 @@ public class PersonalInformationDB {
                     }
                 });
     }
+    public void getOtherPIInMain(final Context context, int number, final String mUsername){
+        db.collection("personalInformation")
+                .limit(number)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            ArrayList<PersonalInformation> strangerList = new ArrayList<PersonalInformation>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                strangerList.add(document.toObject(PersonalInformation.class));
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                            Intent swipe_page = new Intent(context , FriendActivity.class);
+                            swipe_page.putExtra("account" , mUsername);
+                            swipe_page.putExtra("strangerList", strangerList);
+                            context.startActivity(swipe_page);
+                        } else{
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
 }

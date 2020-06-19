@@ -1,16 +1,20 @@
 package com.example.social;
 
+import android.app.ActivityManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.example.social.database.PersonalInformationDB;
 import com.example.social.database.RelationDB;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -49,6 +53,7 @@ public class SwipeActivity extends AppCompatActivity implements NavigationView.O
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView)findViewById(R.id.nav_view);
 
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -66,6 +71,8 @@ public class SwipeActivity extends AppCompatActivity implements NavigationView.O
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.test, menu);
+        TextView name = findViewById(R.id.nameInMenu);
+        name.setText("我誰?");
         return true;
     }
 
@@ -100,5 +107,21 @@ public class SwipeActivity extends AppCompatActivity implements NavigationView.O
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void finish(){
+
+        new AlertDialog.Builder(SwipeActivity.this)
+                .setIcon(null)
+                .setTitle("是否要登出?")
+                .setPositiveButton("登出", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        System.exit(0);
+                    }
+                }).setNegativeButton("取消",null).create()
+                .show();
+
     }
 }
