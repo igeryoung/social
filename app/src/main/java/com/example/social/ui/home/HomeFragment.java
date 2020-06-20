@@ -68,6 +68,7 @@ public class HomeFragment extends Fragment {
         Like.setOnClickListener(likeOnClickListener);
         disLike = (ImageButton) root.findViewById(R.id.dislike);
         disLike.setOnClickListener(dislikeOnClickListener);
+
         return root;
     }
 
@@ -128,6 +129,7 @@ public class HomeFragment extends Fragment {
                 Log.d(TAG, "onCardAppeared: " + position + ", nama: " + tv.getText());
             }
         });
+        // setup swipe attribute
         manager.setStackFrom(StackFrom.None);
         manager.setVisibleCount(3);
         manager.setTranslationInterval(8.0f);
@@ -137,7 +139,6 @@ public class HomeFragment extends Fragment {
         manager.setDirections(Direction.FREEDOM);
         manager.setCanScrollHorizontal(true);
         manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
-
         manager.setOverlayInterpolator(new LinearInterpolator());
         adapter = new CardStackAdapter(addList());
         cardStackView.setLayoutManager(manager);
@@ -170,11 +171,10 @@ public class HomeFragment extends Fragment {
 
     }
 
-
+    //listen like button and automatic right swipe
     private Button.OnClickListener likeOnClickListener = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
-            // TODO Auto-generated method stub
             SwipeAnimationSetting setting = new SwipeAnimationSetting.Builder()
                     .setDirection(Direction.Right)
                     .setDuration(Duration.Normal.duration)
@@ -188,7 +188,6 @@ public class HomeFragment extends Fragment {
     private Button.OnClickListener dislikeOnClickListener = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
-            // TODO Auto-generated method stub
             SwipeAnimationSetting setting = new SwipeAnimationSetting.Builder()
                     .setDirection(Direction.Left)
                     .setDuration(Duration.Normal.duration)
@@ -207,7 +206,7 @@ public class HomeFragment extends Fragment {
         adapter.setItems(baru);
         hasil.dispatchUpdatesTo(adapter);
     }
-
+    // add a list of pic, city, name, age into cardstack
     private List<ItemModel> addList() {
         List<ItemModel> items = new ArrayList<>();
         items.add(new ItemModel("https://firebasestorage.googleapis.com/v0/b/social-d1c8c.appspot.com/o/a%2Fthumbnail.jpg?alt=media&token=642fd631-b8c6-4a1f-b501-05e941b4454a", "Markonah", "", "Jember"));

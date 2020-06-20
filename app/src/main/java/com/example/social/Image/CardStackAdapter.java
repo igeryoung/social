@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.ViewHolder> {
-
+    //Stores a list containing name, city, age and pic
     private List<ItemModel> items;
 
     public CardStackAdapter(List<ItemModel> items) {
@@ -40,6 +40,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
         return items.size();
     }
 
+    // bind xml items with data
     class ViewHolder extends RecyclerView.ViewHolder{
         ImageView image;
         TextView name, city, age;

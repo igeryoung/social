@@ -28,7 +28,7 @@ public class PersonalInformationActivity extends AppCompatActivity {
     private PersonalInformation mPI;
 
     ImageButton ImageButton;
-    private Photo addphoto;
+    private Photo addphoto; // Image storage
 
 
     @Override
@@ -53,6 +53,7 @@ public class PersonalInformationActivity extends AppCompatActivity {
             show_last_change();
     }
 
+    // restore user data from last change
     private void show_last_change() {
 
         EditText text_name = findViewById(R.id.name);
@@ -76,14 +77,16 @@ public class PersonalInformationActivity extends AppCompatActivity {
         text_personality.setText(mPI.getInterest());
         Toast.makeText(PersonalInformationActivity.this, mPI.getGraph(), Toast.LENGTH_SHORT).show();
 
+        //load url into ImageButton
         Picasso.get().load(mPI.getGraph()).transform(new CircleTransform()).into(ImageButton);
         addphoto.setBitmapByURL(mPI.getGraph());
     }
+    //open gallery and add selfie
     public void AddPhoto(View view) {
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(gallery, 100);
     }
-
+    //get data after choosing image from gallery
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -143,7 +146,7 @@ public class PersonalInformationActivity extends AppCompatActivity {
             }else if(text_interest.getText().length() == 0) {
                 throw new PersonalInformationException(PersonalInformationException.ErrorType.interest_blank);
             }
-            //System.out.println(imageUri.);
+
             PersonalInformation PI = new PersonalInformation(account, name, addphoto.getImageUri().toString(), about, college, city, age, gender, interest, personality);
             mPInformationDB.insertPI(PI);
             if(addphoto.ImageSetOrNot())
