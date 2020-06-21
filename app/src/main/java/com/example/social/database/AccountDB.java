@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+/** Using Firestore as online database, and we make page changing within these functions since it's asynchronous*/
+
 public class AccountDB {
     private static final String TAG = "accountMsg";
     private FirebaseFirestore db;
@@ -26,6 +28,7 @@ public class AccountDB {
         this.db = FirebaseFirestore.getInstance();
     }
 
+    /** Check mUsername and mPassword whether exists or correct*/
     public void LogIn(final Context context, String mUsername, final String mPassword){
         db.collection("account")
                 .document(mUsername)
@@ -67,6 +70,7 @@ public class AccountDB {
                 });
     }
 
+    /** Toast message showing whether there's existed account already*/
     public void checkIfAccountExist(final Context context, String mUserName){
         db.collection("account")
                 .document(mUserName)
@@ -92,6 +96,7 @@ public class AccountDB {
                 });
     }
 
+    /** If successfully register, turn back to mainActivity; otherwise, toast error massage according to different condition*/
     public void register(final Context context, final String mUserName, final String mPassword){
         db.collection("account")
                 .document(mUserName)
@@ -119,11 +124,13 @@ public class AccountDB {
                 });
     }
 
+    /** Insert an LEGAL account with password*/
     public void insertAccount(String mUserName, String mPassword){
         Account account = new Account(mUserName, mPassword, false);
         db.collection("account").document(mUserName).set(account);
     }
 
+    /** Change password*/
     public void changePassword(final String mUserName , String mPassword){
         db.collection("account")
                 .document(mUserName)
