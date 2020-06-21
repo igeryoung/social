@@ -159,10 +159,7 @@ public class PersonalInformationDB {
                                 strangerList.add(document.toObject(PersonalInformation.class));
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                             }
-                            Intent swipe_page = new Intent(context , FriendActivity.class);
-                            swipe_page.putExtra("account" , mUsername);
-                            swipe_page.putExtra("strangerList", strangerList);
-                            context.startActivity(swipe_page);
+
                         } else{
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
