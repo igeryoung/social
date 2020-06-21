@@ -1,6 +1,7 @@
 package com.example.social;
 
 import android.app.ActivityManager;
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,12 +14,15 @@ import android.widget.TextView;
 import com.example.social.Image.CircleTransform;
 import com.example.social.database.PersonalInformationDB;
 import com.example.social.database.RelationDB;
+import com.example.social.ui.home.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -50,6 +54,9 @@ public class SwipeActivity extends AppCompatActivity implements NavigationView.O
         strangerList = (ArrayList<PersonalInformation>) intent.getSerializableExtra("strangerList");
         mPI = (PersonalInformation) intent.getSerializableExtra ("mPI");
 
+
+
+
         //System.out.println("SwipeActivity get username = " + account);
         System.out.println("SwipeActivity get mPI = " + mPI);
         //System.out.println("SwipeActivity get strangerList = " + strangerList);
@@ -73,6 +80,11 @@ public class SwipeActivity extends AppCompatActivity implements NavigationView.O
         NavigationUI.setupWithNavController(navigationView, navController);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+    }
+
+    public ArrayList<PersonalInformation> test1(){
+        return strangerList;
     }
 
     @Override
@@ -92,8 +104,6 @@ public class SwipeActivity extends AppCompatActivity implements NavigationView.O
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
-
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

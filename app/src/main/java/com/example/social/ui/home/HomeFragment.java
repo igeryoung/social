@@ -22,6 +22,7 @@ import com.example.social.Image.CardStackCallback;
 import com.example.social.Image.ItemModel;
 import com.example.social.PersonalInformation;
 import com.example.social.R;
+import com.example.social.SwipeActivity;
 import com.example.social.database.PersonalInformationDB;
 import com.example.social.database.RelationDB;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
@@ -51,23 +52,27 @@ public class HomeFragment extends Fragment {
 
     private ImageButton Like;
     private ImageButton disLike;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-
-
+        strangerList =  ((SwipeActivity)getActivity()).test1();
+        System.out.println(strangerList);
         mPInformationDB = new PersonalInformationDB();
         mRelationDB = new RelationDB();
         System.out.println("55");
         System.out.println("SwipeActivity get username = " + account);
         intiPhoto(root);
 
+        //String strtext = getArguments().getString("edttext");
+        //System.out.println(strtext);
         Like = (ImageButton) root.findViewById(R.id.like);
         Like.setOnClickListener(likeOnClickListener);
         disLike = (ImageButton) root.findViewById(R.id.dislike);
         disLike.setOnClickListener(dislikeOnClickListener);
+
 
         return root;
     }
