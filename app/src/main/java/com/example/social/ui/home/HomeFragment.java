@@ -45,6 +45,7 @@ public class HomeFragment extends Fragment {
     private PersonalInformationDB mPInformationDB;
     private RelationDB mRelationDB;
     private ArrayList<PersonalInformation> strangerList;
+    private ArrayList<PersonalInformation> managerlist;
     private CardStackView cardStackView;
     private HomeViewModel homeViewModel;
     private Object HomeFragment;
@@ -157,8 +158,7 @@ public class HomeFragment extends Fragment {
         System.out.println(manager.getTopPosition());
         //System.out.println(strangerList.get(manager.getTopPosition()-1).toString());
         //insert pos ACCOUNT -> DATABASE
-        mRelationDB.addLike(mPI.getId(), strangerList.get(manager.getTopPosition()-1).getId());
-
+        mRelationDB.addLike(mPI.getId(), managerlist.get(manager.getTopPosition()-1).getId());
     }
 
     //listen like button and automatic right swipe
@@ -199,7 +199,13 @@ public class HomeFragment extends Fragment {
     // add a list of pic, city, name, age into cardstack
     private List<ItemModel> addList() {
         List<ItemModel> items = new ArrayList<>();
-        for(PersonalInformation i : strangerList){
+        managerlist = new ArrayList(strangerList);
+        for(int i = 0; i < managerlist.size(); i++)
+            if(managerlist.get(i).getId().equals(mPI.getId())) {
+                managerlist.remove(i);
+                break;
+            }
+        for(PersonalInformation i : managerlist){
             items.add(new ItemModel(i.getGraph(), i.getName(), i.getCity(), i.getAge()));
         }
 
