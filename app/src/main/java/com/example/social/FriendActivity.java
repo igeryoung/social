@@ -38,6 +38,7 @@ public class FriendActivity extends AppCompatActivity {
         account = intent.getStringExtra("account");
         friendList = (ArrayList<PersonalInformation>) intent.getSerializableExtra("friendList");
 
+        System.out.println("friendList size:" + friendList.size());
         recyclerView = findViewById(R.id.recyclerView);
 
         recyclerView.setHasFixedSize(true);

@@ -83,10 +83,10 @@ public class SwipeActivity extends AppCompatActivity implements NavigationView.O
 
     }
 
-    public ArrayList<PersonalInformation> test1(){
+    public ArrayList<PersonalInformation> getStrangerList(){
         return strangerList;
     }
-
+    public PersonalInformation getmPI(){return mPI;}
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

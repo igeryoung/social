@@ -50,6 +50,7 @@ public class HomeFragment extends Fragment {
     private Object HomeFragment;
     private Object AfterTest;
 
+    private PersonalInformation mPI;
     private ImageButton Like;
     private ImageButton disLike;
 
@@ -58,7 +59,8 @@ public class HomeFragment extends Fragment {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        strangerList =  ((SwipeActivity)getActivity()).test1();
+        strangerList =  ((SwipeActivity)getActivity()).getStrangerList();
+        mPI = ((SwipeActivity)getActivity()).getmPI();
         System.out.println(strangerList);
         mPInformationDB = new PersonalInformationDB();
         mRelationDB = new RelationDB();
@@ -89,20 +91,17 @@ public class HomeFragment extends Fragment {
             public void onCardSwiped(Direction direction) {
                 Log.d(TAG, "onCardSwiped: p=" + manager.getTopPosition() + " d=" + direction);
                 if (direction == Direction.Right){
-
-                    swipeRight();
+                    swipeLike();
                 }
                 if (direction == Direction.Top){
                     //add into like list
-                    swipeTop();
+                    swipeLike();
                 }
                 if (direction == Direction.Left){
 
-                    swipeLeft();
                 }
                 if (direction == Direction.Bottom){
 
-                    swipeBottom();
                 }
 
                 // Paginating
@@ -153,26 +152,12 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void swipeBottom() {
+    private void swipeLike() {
         String tmp = "which position" + manager.getTopPosition();
         System.out.println(manager.getTopPosition());
-    }
-
-    private void swipeLeft() {
-        String tmp = "which position" + manager.getTopPosition();
-        System.out.println(manager.getTopPosition());
-    }
-
-    private void swipeTop() {
-        String tmp = "which position" + manager.getTopPosition();
-        System.out.println(manager.getTopPosition());
+        //System.out.println(strangerList.get(manager.getTopPosition()-1).toString());
         //insert pos ACCOUNT -> DATABASE
-    }
-
-    private void swipeRight() {
-        String tmp = "which position" + manager.getTopPosition();
-        System.out.println(manager.getTopPosition());
-        //insert pos ACCOUNT -> DATABASE
+        mRelationDB.addLike(mPI.getId(), strangerList.get(manager.getTopPosition()-1).getId());
 
     }
 
