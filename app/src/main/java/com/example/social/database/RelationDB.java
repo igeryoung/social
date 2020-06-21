@@ -18,6 +18,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Using Firestore as database and store users' relation, for example, likeList and friendList*/
 public class RelationDB {
@@ -31,11 +33,14 @@ public class RelationDB {
     /** Create a document nameed otherUsername in collection named like within mUsername document, and set like to true.
      *  Afterward check whether both user like each other, if so, call addFriend() */
     public void addLike(final String mUsername, final String otherUsername){
+        Map<String, Object> like = new HashMap<>();
+        like.put("like", true);
+
         db.collection("relation")
                 .document(mUsername)
                 .collection("like")
                 .document(otherUsername)
-                .update("like", true)
+                .set(like)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -45,7 +50,7 @@ public class RelationDB {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG, mUsername + " fail to add like for " + otherUsername);
+                        int d = Log.d(TAG, mUsername + " fail to add like for " + otherUsername);
                     }
                 });
         db.collection("relation")
@@ -77,11 +82,14 @@ public class RelationDB {
 
     /** create a document nameed otherUsername in collection named like within mUsername document, and set like to false*/
     public void addDislike(final String mUsername, final String otherUsername){
+        Map<String, Object> like = new HashMap<>();
+        like.put("like", false);
+
         db.collection("relation")
                 .document(mUsername)
                 .collection("like")
                 .document(otherUsername)
-                .update("like", false)
+                .set(like)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
