@@ -17,7 +17,7 @@ import java.util.List;
 public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.ViewHolder> {
     //Stores a list containing name, city, age and pic
     private List<ItemModel> items;
-    //con
+    
     public CardStackAdapter(List<ItemModel> items) {
         this.items = items;
     }
