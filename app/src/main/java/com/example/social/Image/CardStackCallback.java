@@ -3,7 +3,7 @@ package com.example.social.Image;
 import androidx.recyclerview.widget.DiffUtil;
 
 import java.util.List;
-
+// the callback of Card Stack
 public class CardStackCallback extends DiffUtil.Callback {
 
     private List<ItemModel> old, New;

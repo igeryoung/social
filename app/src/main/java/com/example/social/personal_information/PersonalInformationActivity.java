@@ -84,10 +84,10 @@ public class PersonalInformationActivity extends AppCompatActivity {
         text_about.setText(mPI.getAbout());
         text_interest.setText(mPI.getInterest());
         text_personality.setText(mPI.getInterest());
-        //Toast.makeText(PersonalInformationActivity.this, mPI.getGraph(), Toast.LENGTH_SHORT).show();
 
         //load url into ImageButton
         Picasso.get().load(mPI.getGraph()).transform(new CircleTransform()).into(ImageButton);
+        //add image Bitmap into storage
         addphoto.setBitmapByURL(mPI.getGraph());
     }
     //open gallery and add selfie

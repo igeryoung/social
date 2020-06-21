@@ -1,7 +1,7 @@
 package com.example.social.Image;
 
 import android.net.Uri;
-
+// Model that stores the attribute of the card
 public class ItemModel {
 
     private String name, city, age;

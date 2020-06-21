@@ -36,7 +36,7 @@ import com.yuyakaido.android.cardstackview.SwipeableMethod;
 
 import java.util.ArrayList;
 import java.util.List;
-
+// A fragment that controls swipe card
 public class HomeFragment extends Fragment {
     private static final String TAG = "TinderSwipe";
     private CardStackLayoutManager manager;
@@ -60,17 +60,18 @@ public class HomeFragment extends Fragment {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        strangerList =  ((SwipeActivity)getActivity()).getStrangerList();
+
+        strangerList =  ((SwipeActivity)getActivity()).getStrangerList(); // A list that stores personal information
         mPI = ((SwipeActivity)getActivity()).getmPI();
-        System.out.println(strangerList);
+        //System.out.println(strangerList);
+
         mPInformationDB = new PersonalInformationDB();
         mRelationDB = new RelationDB();
         System.out.println("55");
         System.out.println("SwipeActivity get username = " + account);
         intiPhoto(root);
 
-        //String strtext = getArguments().getString("edttext");
-        //System.out.println(strtext);
+        // link like and dislike button
         Like = (ImageButton) root.findViewById(R.id.like);
         Like.setOnClickListener(likeOnClickListener);
         disLike = (ImageButton) root.findViewById(R.id.dislike);
@@ -79,7 +80,7 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
-
+    // start swiping
     private void intiPhoto(View root) {
         cardStackView = root.findViewById(R.id.card_stack_view);
         manager = new CardStackLayoutManager(getActivity(), new CardStackListener() {
@@ -92,6 +93,7 @@ public class HomeFragment extends Fragment {
             public void onCardSwiped(Direction direction) {
                 Log.d(TAG, "onCardSwiped: p=" + manager.getTopPosition() + " d=" + direction);
                 if (direction == Direction.Right){
+                    //add into like list
                     swipeLike();
                 }
                 if (direction == Direction.Top){
@@ -105,7 +107,7 @@ public class HomeFragment extends Fragment {
 
                 }
 
-                // Paginating
+                // Paginating if top position exceed max item count
                 if (manager.getTopPosition() == adapter.getItemCount() - 5){
                     paginate();
                 }
@@ -143,16 +145,14 @@ public class HomeFragment extends Fragment {
         manager.setMaxDegree(20.0f);
         manager.setDirections(Direction.FREEDOM);
         manager.setCanScrollHorizontal(true);
-        manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
+        manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);//enable automatic swipe and manual swipe
         manager.setOverlayInterpolator(new LinearInterpolator());
         adapter = new CardStackAdapter(addList());
         cardStackView.setLayoutManager(manager);
         cardStackView.setAdapter(adapter);
         cardStackView.setItemAnimator(new DefaultItemAnimator());
-
-
     }
-
+    // add user to like list
     private void swipeLike() {
         String tmp = "which position" + manager.getTopPosition();
         System.out.println(manager.getTopPosition());
@@ -174,7 +174,7 @@ public class HomeFragment extends Fragment {
             cardStackView.swipe();
         }
     };
-
+    //listen dislike button and automatic left swipe
     private Button.OnClickListener dislikeOnClickListener = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -187,18 +187,19 @@ public class HomeFragment extends Fragment {
             cardStackView.swipe();
         }
     };
-
+    // add more data if list is almost empty
     private void paginate() {
         List<ItemModel> old = adapter.getItems();
-        List<ItemModel> baru = new ArrayList<>(addList());
-        CardStackCallback callback = new CardStackCallback(old, baru);
-        DiffUtil.DiffResult hasil = DiffUtil.calculateDiff(callback);
-        adapter.setItems(baru);
-        hasil.dispatchUpdatesTo(adapter);
+        List<ItemModel> New = new ArrayList<>(addList());
+        CardStackCallback callback = new CardStackCallback(old, New);
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(callback);
+        adapter.setItems(New);
+        result.dispatchUpdatesTo(adapter);
     }
-    // add a list of pic, city, name, age into cardstack
+    // add a list of pic, city, name, age into cardstack, and remove user itself from hte list
     private List<ItemModel> addList() {
         List<ItemModel> items = new ArrayList<>();
+
         managerlist = new ArrayList(strangerList);
         for(int i = 0; i < managerlist.size(); i++)
             if(managerlist.get(i).getId().equals(mPI.getId())) {
@@ -208,7 +209,6 @@ public class HomeFragment extends Fragment {
         for(PersonalInformation i : managerlist){
             items.add(new ItemModel(i.getGraph(), i.getName(), i.getCity(), i.getAge()));
         }
-
         return items;
     }
 }
