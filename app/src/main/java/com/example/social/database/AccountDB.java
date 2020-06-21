@@ -48,9 +48,6 @@ public class AccountDB {
                                         Log.d(TAG, "Correct password, already have PI!");
                                         PersonalInformationDB mPInformationDB = new PersonalInformationDB();
                                         mPInformationDB.getOtherPIInMain(context, 20, account.getAccount());
-                                        Intent next_page = new Intent(context , SwipeActivity.class );
-                                        next_page.putExtra("account" , account.getAccount());
-                                        context.startActivity(next_page);
                                     }
                                 }
                                 else{

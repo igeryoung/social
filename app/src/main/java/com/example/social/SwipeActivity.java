@@ -32,6 +32,7 @@ public class SwipeActivity extends AppCompatActivity implements NavigationView.O
     private AppBarConfiguration mAppBarConfiguration;
     private String account;
     private ArrayList<PersonalInformation> strangerList;
+    private PersonalInformation mPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,11 @@ public class SwipeActivity extends AppCompatActivity implements NavigationView.O
         Intent intent = getIntent();
         account = intent.getStringExtra("account");
         strangerList = (ArrayList<PersonalInformation>) intent.getSerializableExtra("strangerList");
-        System.out.println("SwipeActivity get username = " + account);
+        mPI = (PersonalInformation) intent.getSerializableExtra ("mPI");
+
+        //System.out.println("SwipeActivity get username = " + account);
+        System.out.println("SwipeActivity get mPI = " + mPI);
+        //System.out.println("SwipeActivity get strangerList = " + strangerList);
 
         //setNavigationViewListener();
         Toolbar toolbar = findViewById(R.id.toolbar);

@@ -170,9 +170,10 @@ public class PersonalInformationActivity extends AppCompatActivity {
     }
 
     public void startSwipe(){
-        Intent next_page = new Intent(PersonalInformationActivity.this , SwipeActivity.class );
-        next_page.putExtra("account" , account);
-        startActivity(next_page);
+//        Intent next_page = new Intent(PersonalInformationActivity.this , SwipeActivity.class );
+//        next_page.putExtra("account" , account);
+//        startActivity(next_page);
+            mPInformationDB.getOtherPIInMain(PersonalInformationActivity.this, 20, account);
     }
 
 }

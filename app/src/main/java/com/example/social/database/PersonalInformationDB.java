@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import com.example.social.FriendActivity;
 import com.example.social.PersonalInformation;
 import com.example.social.PersonalInformationActivity;
+import com.example.social.SwipeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -160,6 +161,34 @@ public class PersonalInformationDB {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                             }
 
+                            final Intent next_page = new Intent(context , SwipeActivity.class );
+                            next_page.putExtra("account" , mUsername);
+                            next_page.putExtra("strangerList", strangerList);
+
+                            db.collection("personalInformation")
+                                    .document(mUsername)
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            if(task.isSuccessful()){
+                                                DocumentSnapshot document = task.getResult();
+                                                if(document.exists()){
+                                                    PersonalInformation mPI = document.toObject(PersonalInformation.class);
+                                                    Log.d(TAG, "get personalInformation => " + mPI.toString());
+                                                    Log.d(TAG, "get personalInformation => " + document.getData());
+                                                    next_page.putExtra("mPI", mPI);
+                                                    context.startActivity(next_page);
+                                                }
+                                                else{
+                                                    Log.d(TAG, "No such document");
+                                                }
+                                            }
+                                            else{
+                                                Log.d(TAG, "get failed with ", task.getException());
+                                            }
+                                        }
+                                    });
                         } else{
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
