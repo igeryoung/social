@@ -7,6 +7,7 @@ import android.graphics.Shader;
 
 import com.squareup.picasso.Transformation;
 //reference from https://stackoverflow.com/questions/26112150/android-create-circular-image-with-picasso
+//turn square pic into round pic
 public class CircleTransform implements Transformation {
     @Override
     public Bitmap transform(Bitmap source) {

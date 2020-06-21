@@ -17,7 +17,7 @@ import java.util.List;
 public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.ViewHolder> {
     //Stores a list containing name, city, age and pic
     private List<ItemModel> items;
-
+    //con
     public CardStackAdapter(List<ItemModel> items) {
         this.items = items;
     }
@@ -29,7 +29,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
         View view = inflater.inflate(R.layout.item_card, parent, false);
         return new ViewHolder(view);
     }
-
+    //Bind ViewHolder with item position
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.setData(items.get(position));
