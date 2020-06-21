@@ -64,14 +64,14 @@
         android:id="@+id/login"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
-        android:text="登入"
-        android:textSize="20dp"
-        android:onClick="LogIn"
-        android:layout_below="@id/password"
-        android:layout_alignRight="@id/password"
-        android:layout_marginTop="10dp"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/rectangle_button"
-        />
+        android:onClick="LogIn"
+        android:text="登入"
+        android:textSize="20dp" />
 
     <TextView
         android:layout_marginLeft="75dp"
@@ -88,9 +88,9 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:background="@drawable/rectangle_button"
-        android:layout_alignRight="@id/password"
         android:layout_below="@id/login"
         android:layout_marginTop="10dp"
+        android:layout_alignRight="@id/password"
         android:text="點此註冊"
         android:textSize="20dp"
         android:onClick="register"
