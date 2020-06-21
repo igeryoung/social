@@ -1,4 +1,4 @@
-package com.example.social;
+package com.example.social.personal_information;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;

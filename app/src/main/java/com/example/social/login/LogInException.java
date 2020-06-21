@@ -1,4 +1,4 @@
-package com.example.social;
+package com.example.social.login;
 
 public class LogInException extends Exception {
     public enum ErrorType {account_blank,account_undefine , password_blank , password_error};

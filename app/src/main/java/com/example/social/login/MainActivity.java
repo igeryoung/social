@@ -1,4 +1,4 @@
-package com.example.social;
+package com.example.social.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,11 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
-import android.graphics.Color;
 
+import com.example.social.R;
 import com.example.social.database.AccountDB;
+import com.example.social.register.RegisterActivity;
 
 public class MainActivity extends AppCompatActivity {
     private AccountDB mDataBase;

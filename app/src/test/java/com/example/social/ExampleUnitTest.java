@@ -1,5 +1,7 @@
 package com.example.social;
 
+import com.example.social.Image.SwipeActivity;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;

@@ -1,4 +1,4 @@
-package com.example.social;
+package com.example.social.friend;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,10 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.social.Image.CircleTransform;
+import com.example.social.R;
+import com.example.social.model.PersonalInformation;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

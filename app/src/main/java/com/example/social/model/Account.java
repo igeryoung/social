@@ -1,4 +1,4 @@
-package com.example.social;
+package com.example.social.model;
 
 public class Account {
     public static final String DATABASE_TABLE = "ACCOUNT_TABLE";

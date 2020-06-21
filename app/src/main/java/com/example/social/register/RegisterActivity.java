@@ -1,4 +1,4 @@
-package com.example.social;
+package com.example.social.register;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.social.R;
 import com.example.social.database.AccountDB;
 
 public class RegisterActivity extends AppCompatActivity {

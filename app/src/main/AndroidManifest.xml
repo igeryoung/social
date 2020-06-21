@@ -12,15 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SwipeActivity"
+            android:name=".Image.SwipeActivity"
             android:label="@string/title_activity_test"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".FriendInfoActivity" />
-        <activity android:name=".FriendActivity" />
-        <activity android:name=".PersonalInformationActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".Photo" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".friend.FriendInfoActivity" />
+        <activity android:name=".friend.FriendActivity" />
+        <activity android:name=".personal_information.PersonalInformationActivity" />
+        <activity android:name=".register.RegisterActivity" />
+        <activity android:name=".personal_information.Photo" />
+        <activity android:name=".login.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

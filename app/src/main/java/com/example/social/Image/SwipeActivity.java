@@ -1,28 +1,24 @@
-package com.example.social;
+package com.example.social.Image;
 
-import android.app.ActivityManager;
-import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.social.Image.CircleTransform;
+import com.example.social.model.PersonalInformation;
+import com.example.social.R;
 import com.example.social.database.PersonalInformationDB;
 import com.example.social.database.RelationDB;
-import com.example.social.ui.home.HomeFragment;
+import com.example.social.login.MainActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;

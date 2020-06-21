@@ -1,4 +1,4 @@
-package com.example.social;
+package com.example.social.personal_information;
 
 public class PersonalInformationException extends Exception {
     public enum ErrorType {image_blank, name_blank, gender_blank, age_blank, college_blank, city_blank, about_blank, personality_blank, interest_blank};

@@ -1,6 +1,4 @@
-package com.example.social;
-
-import android.widget.TextView;
+package com.example.social.register;
 
 public class RegisterException extends Exception {
     public enum ErrorType {account_blank , password_blank , assure_error , assure_blank};

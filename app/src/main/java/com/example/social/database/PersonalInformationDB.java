@@ -6,10 +6,10 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.social.FriendActivity;
-import com.example.social.PersonalInformation;
-import com.example.social.PersonalInformationActivity;
-import com.example.social.SwipeActivity;
+import com.example.social.friend.FriendActivity;
+import com.example.social.model.PersonalInformation;
+import com.example.social.personal_information.PersonalInformationActivity;
+import com.example.social.Image.SwipeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

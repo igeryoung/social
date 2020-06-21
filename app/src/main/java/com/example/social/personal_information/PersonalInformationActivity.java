@@ -1,4 +1,4 @@
-package com.example.social;
+package com.example.social.personal_information;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.social.Image.CircleTransform;
+import com.example.social.model.PersonalInformation;
+import com.example.social.R;
 import com.example.social.database.AccountDB;
 import com.example.social.database.ImageDB;
 import com.example.social.database.PersonalInformationDB;

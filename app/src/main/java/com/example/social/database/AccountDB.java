@@ -7,10 +7,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.social.Account;
-import com.example.social.MainActivity;
-import com.example.social.PersonalInformationActivity;
-import com.example.social.SwipeActivity;
+import com.example.social.model.Account;
+import com.example.social.login.MainActivity;
+import com.example.social.personal_information.PersonalInformationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
