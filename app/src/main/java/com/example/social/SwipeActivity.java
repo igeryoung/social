@@ -7,11 +7,14 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.social.Image.CircleTransform;
 import com.example.social.database.PersonalInformationDB;
 import com.example.social.database.RelationDB;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -77,7 +80,9 @@ public class SwipeActivity extends AppCompatActivity implements NavigationView.O
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.test, menu);
         TextView name = findViewById(R.id.nameInMenu);
-        name.setText("我誰?");
+        name.setText(mPI.getName());
+        ImageView photo = findViewById(R.id.imageViewInMenu);
+        Picasso.get().load(mPI.getGraph()).resize(250 , 250).transform(new CircleTransform()).into(photo);
         return true;
     }
 
