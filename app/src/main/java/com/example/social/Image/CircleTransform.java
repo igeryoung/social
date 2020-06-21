@@ -9,6 +9,7 @@ import com.squareup.picasso.Transformation;
 //reference from https://stackoverflow.com/questions/26112150/android-create-circular-image-with-picasso
 //turn square pic into round pic
 public class CircleTransform implements Transformation {
+    // trans form into round pic
     @Override
     public Bitmap transform(Bitmap source) {
         int size = Math.min(source.getWidth(), source.getHeight());
@@ -36,7 +37,7 @@ public class CircleTransform implements Transformation {
         squaredBitmap.recycle();
         return bitmap;
     }
-
+    //return key
     @Override
     public String key() {
         return "circle";

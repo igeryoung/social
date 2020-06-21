@@ -84,11 +84,12 @@ public class HomeFragment extends Fragment {
     private void intiPhoto(View root) {
         cardStackView = root.findViewById(R.id.card_stack_view);
         manager = new CardStackLayoutManager(getActivity(), new CardStackListener() {
+            //invoked when the pic is dragged
             @Override
             public void onCardDragging(Direction direction, float ratio) {
                 Log.d(TAG, "onCardDragging: d=" + direction.name() + " ratio=" + ratio);
             }
-
+            // determine the direction of card swipe
             @Override
             public void onCardSwiped(Direction direction) {
                 Log.d(TAG, "onCardSwiped: p=" + manager.getTopPosition() + " d=" + direction);
@@ -106,34 +107,33 @@ public class HomeFragment extends Fragment {
                 if (direction == Direction.Bottom){
 
                 }
-
                 // Paginating if top position exceed max item count
                 if (manager.getTopPosition() == adapter.getItemCount() - 5){
                     paginate();
                 }
 
             }
-
+            //invoked when card rewounded
             @Override
             public void onCardRewound() {
                 Log.d(TAG, "onCardRewound: " + manager.getTopPosition());
             }
-
+            //invoked when card canceled
             @Override
             public void onCardCanceled() {
                 Log.d(TAG, "onCardRewound: " + manager.getTopPosition());
             }
-
+            // bind card with data
             @Override
             public void onCardAppeared(View view, int position) {
                 TextView tv = view.findViewById(R.id.item_name);
-                Log.d(TAG, "onCardAppeared: " + position + ", nama: " + tv.getText());
+                Log.d(TAG, "onCardAppeared: " + position + ", name: " + tv.getText());
             }
-
+            // invoked when card dissapeared
             @Override
             public void onCardDisappeared(View view, int position) {
                 TextView tv = view.findViewById(R.id.item_name);
-                Log.d(TAG, "onCardAppeared: " + position + ", nama: " + tv.getText());
+                Log.d(TAG, "onCardAppeared: " + position + ", name: " + tv.getText());
             }
         });
         // setup swipe attribute

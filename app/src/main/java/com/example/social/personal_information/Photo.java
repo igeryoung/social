@@ -16,7 +16,7 @@ public class Photo extends AppCompatActivity {
     Bitmap imageBitmap;
     Target target;
 
-
+    //initialize variable
     public Photo(){
         ImageSet = false;
         target = new Target() {
@@ -36,7 +36,7 @@ public class Photo extends AppCompatActivity {
             }
         };
     }
-
+    // bitmap setter
     public void setBitmap(Bitmap bitmap) {
         imageBitmap = bitmap;
         ImageSet = true;
@@ -68,7 +68,7 @@ public class Photo extends AppCompatActivity {
         Picasso.get().load(image_url).into(target);
         ImageSet = true;
     }
-
+    //Uri setter
     public void setUri(Uri data) {
         imageUri = data;
     }
