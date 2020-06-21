@@ -10,7 +10,11 @@ import android.provider.MediaStore;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.social.Image.CircleTransform;
+import com.squareup.picasso.Picasso;
 
 public class FriendInfoActivity extends AppCompatActivity {
     public PersonalInformation PI;
@@ -29,14 +33,14 @@ public class FriendInfoActivity extends AppCompatActivity {
     }
 
     private void show() {
-        EditText text_name = findViewById(R.id.name);
-        EditText text_gender = findViewById(R.id.gender);
-        EditText text_age = findViewById(R.id.age);
-        EditText text_college = findViewById(R.id.college);
-        EditText text_city = findViewById(R.id.city);
-        EditText text_about = findViewById(R.id.about);
-        EditText text_interest = findViewById(R.id.interest);
-        EditText text_personality = findViewById(R.id.interest);
+        TextView text_name = findViewById(R.id.name);
+        TextView text_gender = findViewById(R.id.gender);
+        TextView text_age = findViewById(R.id.age);
+        TextView text_college = findViewById(R.id.college);
+        TextView text_city = findViewById(R.id.city);
+        TextView text_about = findViewById(R.id.about);
+        TextView text_interest = findViewById(R.id.interest);
+        TextView text_personality = findViewById(R.id.personality);
         // " " put info of personalInfo get by id
         text_name.setText(PI.getName());
         text_gender.setText(PI.getGender());
@@ -46,14 +50,6 @@ public class FriendInfoActivity extends AppCompatActivity {
         text_about.setText(PI.getAbout());
         text_interest.setText(PI.getInterest());
         text_personality.setText(PI.getPersonality());
-        try {
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(PI.getGraph()));
-            Bitmap imageBitmap = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
-            IV.setImageBitmap(imageBitmap);
-            //ImageButton.setImageURI();
-        }
-        catch(Exception e){
-            Toast.makeText(FriendInfoActivity.this, "no image", Toast.LENGTH_SHORT).show();
-        }
+        Picasso.get().load(PI.getGraph()).transform(new CircleTransform()).into(IV);
     }
 }
