@@ -22,6 +22,7 @@ import com.example.social.Image.CardStackCallback;
 import com.example.social.Image.ItemModel;
 import com.example.social.PersonalInformation;
 import com.example.social.R;
+import com.example.social.SwipeActivity;
 import com.example.social.database.PersonalInformationDB;
 import com.example.social.database.RelationDB;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
@@ -49,25 +50,31 @@ public class HomeFragment extends Fragment {
     private Object HomeFragment;
     private Object AfterTest;
 
+    private PersonalInformation mPI;
     private ImageButton Like;
     private ImageButton disLike;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-
-
+        strangerList =  ((SwipeActivity)getActivity()).getStrangerList();
+        mPI = ((SwipeActivity)getActivity()).getmPI();
+        System.out.println(strangerList);
         mPInformationDB = new PersonalInformationDB();
         mRelationDB = new RelationDB();
         System.out.println("55");
         System.out.println("SwipeActivity get username = " + account);
         intiPhoto(root);
 
+        //String strtext = getArguments().getString("edttext");
+        //System.out.println(strtext);
         Like = (ImageButton) root.findViewById(R.id.like);
         Like.setOnClickListener(likeOnClickListener);
         disLike = (ImageButton) root.findViewById(R.id.dislike);
         disLike.setOnClickListener(dislikeOnClickListener);
+
 
         return root;
     }
@@ -84,20 +91,17 @@ public class HomeFragment extends Fragment {
             public void onCardSwiped(Direction direction) {
                 Log.d(TAG, "onCardSwiped: p=" + manager.getTopPosition() + " d=" + direction);
                 if (direction == Direction.Right){
-
-                    swipeRight();
+                    swipeLike();
                 }
                 if (direction == Direction.Top){
                     //add into like list
-                    swipeTop();
+                    swipeLike();
                 }
                 if (direction == Direction.Left){
 
-                    swipeLeft();
                 }
                 if (direction == Direction.Bottom){
 
-                    swipeBottom();
                 }
 
                 // Paginating
@@ -148,26 +152,12 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void swipeBottom() {
+    private void swipeLike() {
         String tmp = "which position" + manager.getTopPosition();
         System.out.println(manager.getTopPosition());
-    }
-
-    private void swipeLeft() {
-        String tmp = "which position" + manager.getTopPosition();
-        System.out.println(manager.getTopPosition());
-    }
-
-    private void swipeTop() {
-        String tmp = "which position" + manager.getTopPosition();
-        System.out.println(manager.getTopPosition());
+        //System.out.println(strangerList.get(manager.getTopPosition()-1).toString());
         //insert pos ACCOUNT -> DATABASE
-    }
-
-    private void swipeRight() {
-        String tmp = "which position" + manager.getTopPosition();
-        System.out.println(manager.getTopPosition());
-        //insert pos ACCOUNT -> DATABASE
+        mRelationDB.addLike(mPI.getId(), strangerList.get(manager.getTopPosition()-1).getId());
 
     }
 
@@ -209,9 +199,9 @@ public class HomeFragment extends Fragment {
     // add a list of pic, city, name, age into cardstack
     private List<ItemModel> addList() {
         List<ItemModel> items = new ArrayList<>();
-        items.add(new ItemModel("https://firebasestorage.googleapis.com/v0/b/social-d1c8c.appspot.com/o/a%2Fthumbnail.jpg?alt=media&token=642fd631-b8c6-4a1f-b501-05e941b4454a", "Markonah", "", "Jember"));
-        items.add(new ItemModel("https://firebasestorage.googleapis.com/v0/b/social-d1c8c.appspot.com/o/a%2Fthumbnail.jpg?alt=media&token=642fd631-b8c6-4a1f-b501-05e941b4454a", "Markonah", "", "Jember"));
-        items.add(new ItemModel("https://firebasestorage.googleapis.com/v0/b/social-d1c8c.appspot.com/o/a%2Fthumbnail.jpg?alt=media&token=642fd631-b8c6-4a1f-b501-05e941b4454a", "Markonah", "", "Jember"));
+        for(PersonalInformation i : strangerList){
+            items.add(new ItemModel(i.getGraph(), i.getName(), i.getCity(), i.getAge()));
+        }
 
         return items;
     }
