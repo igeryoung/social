@@ -41,17 +41,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
             mDataBase.LogIn(MainActivity.this, account, password);
-            /**
-            else if(mDataBase.checkIfAccountExist(account) == false){
-                throw new LogInException(LogInException.ErrorType.account_undefine);
-            }else if(mDataBase.checkPassword(account, password) == false){
-                throw new LogInException(LogInException.ErrorType.password_error);
-            }
-            // successful login and jump to next page
-
-            Intent next_page = new Intent(MainActivity.this , PersonalInformationActivity.class );
-            startActivity(next_page);
-             */
 
         } catch (LogInException e) {
             Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
