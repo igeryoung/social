@@ -1,5 +1,7 @@
 package com.example.social.personal_information;
-
+/*
+    exception for blank in PersonalInformationActivity
+ */
 public class PersonalInformationException extends Exception {
     public enum ErrorType {image_blank, name_blank, gender_blank, age_blank, college_blank, city_blank, about_blank, personality_blank, interest_blank};
     private PersonalInformationException.ErrorType error;

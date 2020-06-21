@@ -21,14 +21,16 @@ import com.example.social.database.PersonalInformationDB;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
-
+/*
+    page for showing and changing information of user
+    information : id(account) , name , graph , about , interest , personality , city , college
+ */
 public class PersonalInformationActivity extends AppCompatActivity {
     private String account;
     private AccountDB mAccountDB;
     private PersonalInformationDB mPInformationDB;
     private ImageDB mImageDB;
     private PersonalInformation mPI;
-
     ImageButton ImageButton;
     private Photo addphoto; // Image storage
 
@@ -37,20 +39,25 @@ public class PersonalInformationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_information);
+
+        //init and get user's info
         Intent intent = getIntent();
         account = intent.getStringExtra("account");
         mPI = (PersonalInformation) intent.getSerializableExtra("mPI");
         if(mPI == null) Log.d("PIActivity", "got null");
         else Log.d("PIActivity", mPI.toString());
 
+        //init data base
         this.mAccountDB = new AccountDB();
         this.mImageDB = new ImageDB(account);
         this.mPInformationDB = new PersonalInformationDB();
 
+        //set photo button
         ImageButton = findViewById(R.id.image);
         addphoto = new Photo();
         ImageButton.setTag(addphoto.target);
 
+        //if have info in database , show last change of them
         if(mPI != null)
             show_last_change();
     }
@@ -108,9 +115,10 @@ public class PersonalInformationActivity extends AppCompatActivity {
         }
     }
 
-
+    //Button "確定" click event : detect blank EditText , save info change , and change page to SwipeActivity
     public void Certain(View view) {
         try{
+            //get text from EditText
             EditText text_name = findViewById(R.id.name);
             String name = text_name.getText().toString();
             EditText text_gender = findViewById(R.id.gender);
@@ -128,7 +136,7 @@ public class PersonalInformationActivity extends AppCompatActivity {
             EditText text_personality = findViewById(R.id.personality);
             String personality = text_personality.getText().toString();
 
-
+            //blank event detect and throw to exception
             if(!addphoto.ImageSetOrNot()){
                 throw new PersonalInformationException(PersonalInformationException.ErrorType.image_blank);
             }else if(text_name.getText().length() == 0){
@@ -149,32 +157,33 @@ public class PersonalInformationActivity extends AppCompatActivity {
                 throw new PersonalInformationException(PersonalInformationException.ErrorType.interest_blank);
             }
 
+            //renew the data in database
             PersonalInformation PI = new PersonalInformation(account, name, addphoto.getImageUri().toString(), about, college, city, age, gender, interest, personality);
             mPInformationDB.insertPI(PI);
             if(addphoto.ImageSetOrNot())
                 mImageDB.updateURL(addphoto.getImageBitmap());
             Toast.makeText(PersonalInformationActivity.this, "個人資料新增成功", Toast.LENGTH_SHORT).show();
 
+            //get data from database and change to SwipeActivity
             startSwipe();
-
         }catch (PersonalInformationException e){
             Toast.makeText(PersonalInformationActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
+    //override finish to back to Swipe
     @Override
     public void finish(){
         startSwipe();
     }
 
+    //Button "取消" click event : discard info change and change page to SwipeActivity
     public void Cancel(View view) {
         finish();
     }
 
+    //get data from database and change to SwipeActivity
     public void startSwipe(){
-//        Intent next_page = new Intent(PersonalInformationActivity.this , SwipeActivity.class );
-//        next_page.putExtra("account" , account);
-//        startActivity(next_page);
             mPInformationDB.getOtherPIInMain(PersonalInformationActivity.this, 20, account);
     }
 

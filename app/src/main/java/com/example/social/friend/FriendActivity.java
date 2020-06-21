@@ -22,7 +22,10 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
-
+/*
+    page for showing a list of user's friend
+    item content : photo , name , about
+ */
 public class FriendActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -36,24 +39,28 @@ public class FriendActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend);
 
+        //get account and initial  friendList
         Intent intent = getIntent();
         account = intent.getStringExtra("account");
         friendList = (ArrayList<PersonalInformation>) intent.getSerializableExtra("friendList");
 
-        System.out.println("friendList size:" + friendList.size());
+        //set the list ( recyclerView )
         recyclerView = findViewById(R.id.recyclerView);
-
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        doData();
 
+        //put data into a linkedlist to maintain list
+        putData();
+
+        //set the list by data in linkedlist
         myAdapter = new MyAdapter();
         recyclerView.setAdapter(myAdapter);
     }
 
-    private void doData() {
+    //put data into a linkedlist to maintain list
+    private void putData() {
         data = new LinkedList<>();
         if(friendList == null)  return;
         for(int i = 0; i < friendList.size() ; i++){
@@ -67,6 +74,7 @@ public class FriendActivity extends AppCompatActivity {
 
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
+        // set a holder and init it ( for maintain the list )
         class MyViewHolder extends RecyclerView.ViewHolder {
             public View itemView;
             public TextView name;
@@ -78,11 +86,11 @@ public class FriendActivity extends AppCompatActivity {
                 name = itemView.findViewById(R.id.name);
                 photo = itemView.findViewById(R.id.photo);
                 about = itemView.findViewById(R.id.about);
+
+                //set up a click listener for clicking item in list
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                        Toast.makeText(view.getContext(),
-//                                "click " +getAdapterPosition(), Toast.LENGTH_SHORT).show();
                         PersonalInformation target = friendList.get(getAdapterPosition());
                         String info = target.getAllInString();
                         Intent next_page = new Intent(FriendActivity.this , FriendInfoActivity.class );
@@ -93,20 +101,23 @@ public class FriendActivity extends AppCompatActivity {
             }
         }
 
+        //show the list ( by construct a holder )
         @NonNull
         @Override
         public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View itemView =  LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_friend, parent, false);
             MyViewHolder vh = new MyViewHolder(itemView);
-
             return vh;
         }
 
+        //set data of item in list
         @Override
         public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
             holder.name.setText(data.get(position).get("name"));
             holder.about.setText(data.get(position).get("about"));
+
+            //show photo by uri
             try {
                 Picasso.get().load(data.get(position).get("uri")).transform(new CircleTransform()).into(holder.photo);
                 //ImageButton.setImageURI();
@@ -117,12 +128,14 @@ public class FriendActivity extends AppCompatActivity {
 
         }
 
+        //method for return size of list
         @Override
         public int getItemCount() {
             return data.size();
         }
     }
 
+    //Button "返回" click event : back to page SwipeActivity
     public void Back(View view) {
         finish();
     }

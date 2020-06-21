@@ -149,6 +149,5 @@ public class SwipeActivity extends AppCompatActivity implements NavigationView.O
                     }
                 }).setNegativeButton("取消",null).create()
                 .show();
-
     }
 }
