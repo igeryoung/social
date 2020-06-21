@@ -19,6 +19,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+/** Using Firestore as database and store users' relation, for example, likeList and friendList*/
 public class RelationDB {
     private static final String TAG = "FriendMsg";
     private FirebaseFirestore db;
@@ -27,6 +28,8 @@ public class RelationDB {
         this.db = FirebaseFirestore.getInstance();
     }
 
+    /** Create a document nameed otherUsername in collection named like within mUsername document, and set like to true.
+     *  Afterward check whether both user like each other, if so, call addFriend() */
     public void addLike(final String mUsername, final String otherUsername){
         db.collection("relation")
                 .document(mUsername)
@@ -72,6 +75,7 @@ public class RelationDB {
                 });
     }
 
+    /** create a document nameed otherUsername in collection named like within mUsername document, and set like to false*/
     public void addDislike(final String mUsername, final String otherUsername){
         db.collection("relation")
                 .document(mUsername)
@@ -92,6 +96,7 @@ public class RelationDB {
                 });
     }
 
+    /** Set aUsername's personalInformation in collection named friend in bUsername's document*/
     public void addFriend(final String aUsername, final String bUsername){
         db.collection("personalInformation")
                 .document(aUsername)
@@ -133,7 +138,7 @@ public class RelationDB {
                 });
     }
 
-
+    /** Get mUsername's friendList and send it to FriendActivity page*/
     public void getFriendList(final Context context, final String mUsername){
         db.collection("relation")
                 .document(mUsername)

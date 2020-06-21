@@ -14,17 +14,18 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 
+/** Using FirebaseStorage as image database*/
 public class ImageDB {
     private static final String TAG = "imageMsg";
     private StorageReference mStorageRef;
     private String mUserName;
-    private boolean checkRet;
 
     public ImageDB(String mUserName){
         mStorageRef = FirebaseStorage.getInstance().getReference();
         this.mUserName = mUserName;
     }
 
+    /**upload the image to image database and update the corresponding URL in the personalInformation database*/
     public void updateURL(Bitmap bitmap){
         final StorageReference mRef = mStorageRef.child(mUserName).child("thumbnail.jpg");
         //Uri file = Uri.fromFile(new File(path));

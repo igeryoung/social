@@ -25,6 +25,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Using Firestore as database and store users' personalInformations*/
 public class PersonalInformationDB {
     private static final String TAG = "PersonalInformationMsg";
     private FirebaseFirestore db;
@@ -33,7 +34,7 @@ public class PersonalInformationDB {
         this.db = FirebaseFirestore.getInstance();
     }
 
-    /** PersonalInformation.id == userName ? */
+    /** Insert personalInformation (cover the old personalInformation if existed), and update boolean havePI in account database*/
     public void insertPI(PersonalInformation PI){
         db.collection("personalInformation").document(PI.getId()).set(PI);
         db.collection("account")
@@ -53,6 +54,7 @@ public class PersonalInformationDB {
                 });
     }
 
+    /** Update graph url*/
     public void updateGraph(String URL, String mUsername){
         db.collection("personalInformation").document(mUsername)
                 .update("graph", URL)
@@ -70,6 +72,7 @@ public class PersonalInformationDB {
                 });
     }
 
+    /** Get mUsername's self personalInformation*/
     public void getMyPI(final Context context, final String mUsername){
         db.collection("personalInformation")
                 .document(mUsername)
@@ -99,6 +102,7 @@ public class PersonalInformationDB {
                 });
     }
 
+    /** Get others' personalInformation with specific target and value*/
     public void getOtherPI(String targetField, String targetValue, int number){
         db.collection("personalInformation")
                 .whereEqualTo(targetField, targetValue)
@@ -124,6 +128,7 @@ public class PersonalInformationDB {
                 });
     }
 
+    /** Get others' personalInformation limited by number*/
     public void getOtherPI(final Context context, int number, final String mUsername){
         db.collection("personalInformation")
                 .limit(number)
@@ -147,6 +152,8 @@ public class PersonalInformationDB {
                     }
                 });
     }
+
+    /** Get others' personalInformation and create a strangerList, then send it to SwipeActivity*/
     public void getOtherPIInMain(final Context context, int number, final String mUsername){
         db.collection("personalInformation")
                 .limit(number)
