@@ -15,13 +15,12 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.ViewHolder> {
-    //Stores a list containing name, city, age and pic
-    private List<ItemModel> items;
-
+    private List<ItemModel> items; //Stores a list containing name, city, age and pic
+    //constructor
     public CardStackAdapter(List<ItemModel> items) {
         this.items = items;
     }
-
+    //return View Holder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -34,7 +33,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.setData(items.get(position));
     }
-
+    //return Item count
     @Override
     public int getItemCount() {
         return items.size();
@@ -63,11 +62,11 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
             age.setText(data.getAge());
         }
     }
-
+    // return items
     public List<ItemModel> getItems() {
         return items;
     }
-
+    // set items
     public void setItems(List<ItemModel> items) {
         this.items = items;
     }
