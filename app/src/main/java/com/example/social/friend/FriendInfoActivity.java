@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,5 +48,9 @@ public class FriendInfoActivity extends AppCompatActivity {
         text_interest.setText(PI.getInterest());
         text_personality.setText(PI.getPersonality());
         Picasso.get().load(PI.getGraph()).transform(new CircleTransform()).into(IV);
+    }
+
+    public void Certain(View view) {
+        finish();
     }
 }

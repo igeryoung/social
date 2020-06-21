@@ -1,11 +1,20 @@
 package com.example.social.login;
-
+/*
+*   deal exception general in login
+ */
 public class LogInException extends Exception {
+
     public enum ErrorType {account_blank,account_undefine , password_blank , password_error};
+    /*
+       account_undefine : unregister account
+       password_error : password can't match account
+     */
     private ErrorType error;
+
     public LogInException(ErrorType error) {
         this.error = error;
     }
+
     @Override
     public String getMessage(){
         switch (error){

@@ -1,6 +1,11 @@
 package com.example.social.register;
 
+/*
+ *   deal exception general in register
+ */
 public class RegisterException extends Exception {
+
+    //assure_error : assured password can't match password
     public enum ErrorType {account_blank , password_blank , assure_error , assure_blank};
     private RegisterException.ErrorType error;
     public RegisterException(RegisterException.ErrorType error) {

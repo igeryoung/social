@@ -20,6 +20,7 @@
         android:textSize="25sp"
         android:layout_alignRight="@id/account"
         android:layout_alignBaseline="@id/account"
+        android:layout_alignBottom="@+id/password"
         android:layout_marginRight="200dp"
         />
 

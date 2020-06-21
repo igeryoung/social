@@ -29,6 +29,13 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 
+/*
+    home page of user. Provide photo swipe ( like & dislike ), a left hand side hidden menu, which show photo & name & some function
+    item in menu :
+        personal information
+        friend list
+        logout
+ */
 public class SwipeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private PersonalInformationDB mPInformationDB;
     private RelationDB mRelationDB;
@@ -42,31 +49,26 @@ public class SwipeActivity extends AppCompatActivity implements NavigationView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
+        //initial database
         mPInformationDB = new PersonalInformationDB();
         mRelationDB = new RelationDB();
 
+        //get account and initial  PersonalInformation
         Intent intent = getIntent();
         account = intent.getStringExtra("account");
         strangerList = (ArrayList<PersonalInformation>) intent.getSerializableExtra("strangerList");
         mPI = (PersonalInformation) intent.getSerializableExtra ("mPI");
 
-
-
-
         //System.out.println("SwipeActivity get username = " + account);
         System.out.println("SwipeActivity get mPI = " + mPI);
-        //System.out.println("SwipeActivity get strangerList = " + strangerList);
 
-        //setNavigationViewListener();
+        //set toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //set Drawer
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView)findViewById(R.id.nav_view);
-
-
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_person, R.id.nav_friend, R.id.nav_logout)
                 .setDrawerLayout(drawer)
@@ -76,17 +78,18 @@ public class SwipeActivity extends AppCompatActivity implements NavigationView.O
         NavigationUI.setupWithNavController(navigationView, navController);
         navigationView.setNavigationItemSelectedListener(this);
 
-
     }
 
+    //method for passing data to fragment
     public ArrayList<PersonalInformation> getStrangerList(){
         return strangerList;
     }
+    //method for passing data to fragment
     public PersonalInformation getmPI(){return mPI;}
+
+    // menu item controller
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.test, menu);
         TextView name = findViewById(R.id.nameInMenu);
         name.setText(mPI.getName());
         ImageView photo = findViewById(R.id.imageViewInMenu);
@@ -94,6 +97,7 @@ public class SwipeActivity extends AppCompatActivity implements NavigationView.O
         return true;
     }
 
+    // show the fragment by navController
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -101,18 +105,24 @@ public class SwipeActivity extends AppCompatActivity implements NavigationView.O
                 || super.onSupportNavigateUp();
     }
 
+    // set the click event on menu item
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
+            //"個人資料"
             case R.id.nav_person: {
                 mPInformationDB.getMyPI(SwipeActivity.this, account);
                 break;
             }
+
+            //"好友名單"
             case R.id.nav_friend: {
                 mRelationDB.getFriendList(SwipeActivity.this, account);
                 break;
             }
+
+            //"登出"
             case R.id.nav_logout: {
                 Intent page = new Intent(SwipeActivity.this , MainActivity.class);
                 startActivity(page);
@@ -120,14 +130,15 @@ public class SwipeActivity extends AppCompatActivity implements NavigationView.O
             }
         }
 
+        //close menu after click menu item
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
+    // a AlertDialog to reassure user want to logout or not
     @Override
     public void finish(){
-
         new AlertDialog.Builder(SwipeActivity.this)
                 .setIcon(null)
                 .setTitle("是否要登出?")

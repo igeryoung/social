@@ -12,6 +12,9 @@ import com.example.social.R;
 import com.example.social.database.AccountDB;
 import com.example.social.register.RegisterActivity;
 
+/*
+*   main page , handle login event
+*/
 public class MainActivity extends AppCompatActivity {
     private AccountDB mDataBase;
 
@@ -19,20 +22,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //findViewById(R.id.loadingPanel).setVisibility(View.INVISIBLE);
-        //final LinearLayout background = (LinearLayout)findViewById(R.id.background);
-        //background.setBackgroundColor(Color.parseColor("#B0E0E6"));
+
+        //initial database of account
         this.mDataBase = new AccountDB();
     }
 
     public void LogIn(View view) {
 
         try {
-            //findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
+            //get data in EditText
             EditText text_account = findViewById(R.id.account);
             String account = text_account.getText().toString();
             EditText text_password = findViewById(R.id.password);
             String password = text_password.getText().toString();
+
             //failure handle
             if(text_account.getText().length() == 0){
                 throw new LogInException(LogInException.ErrorType.account_blank);
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 throw new LogInException(LogInException.ErrorType.password_blank);
             }
 
+            //check account in database , login , and change page
             mDataBase.LogIn(MainActivity.this, account, password);
 
         } catch (LogInException e) {
@@ -48,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Button "點此註冊" click event : change page to RegisterActivity
     public void register(View view) {
         Intent next_page = new Intent(MainActivity.this , RegisterActivity.class );
         startActivity(next_page);
