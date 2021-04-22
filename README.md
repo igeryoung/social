@@ -133,26 +133,20 @@ model儲存我們為了資料管理創建的Object Class
 4. 標籤擇友功能：根據每一個用戶填寫的個人資料，將每個用戶貼上一些標籤，之後再根據標籤來把有相近標籤的用戶匹配在一起，或是讓用戶可以手動過濾一些有特定標籤的用戶．
 
 ## 附錄:
-Android Studio 開發頁面:
-![](https://i.imgur.com/IjP4Kfi.png)
-FireBase 開發頁面:
-![](https://i.imgur.com/9ad7Jmm.png)
-Github 開發介面:
-![](https://i.imgur.com/6cNnkBm.png)
+Android Studio 開發頁面:  
+![](https://i.imgur.com/IjP4Kfi.png)  
+FireBase 開發頁面:  
+![](https://i.imgur.com/9ad7Jmm.png)  
+Github 開發介面:  
+![](https://i.imgur.com/6cNnkBm.png)  
 
-Login 頁面:
-![](https://i.imgur.com/9loBm1L.png)
-Register 頁面:
-![](https://i.imgur.com/e7dF1VZ.png)
-Personal Information介面:
-![](https://i.imgur.com/BlayJgB.png)
-滑動頁面:
-![](https://i.imgur.com/Kew0ldc.png)
-
-滑動時:
-![](https://i.imgur.com/gU7jiar.jpg =320x630)
-
-ToolBar:
-![](https://i.imgur.com/CAC5OTj.png)
-好友介面:
-![](https://i.imgur.com/HZMrSFE.jpg =320x630)
+Login 頁面:  
+![](https://i.imgur.com/9loBm1L.png)  
+Register 頁面:  
+![](https://i.imgur.com/e7dF1VZ.png)  
+Personal Information介面:  
+![](https://i.imgur.com/BlayJgB.png)  
+滑動頁面:  
+![](https://i.imgur.com/Kew0ldc.png)  
+ToolBar:  
+![](https://i.imgur.com/CAC5OTj.png)  
